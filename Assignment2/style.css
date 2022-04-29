@@ -1,0 +1,34 @@
+#stats {
+
+    border: solid black 1px;
+    box-shadow: 1px;
+    
+}
+#name {
+    display: block;
+    justify-content: start;
+    flex-direction: row;
+
+}
+#type {
+    display: block;
+    justify-content: start;
+    flex-direction: row;
+}
+
+#card {
+    display: flex;
+
+
+}
+
+#picture {
+    display: flex;
+    justify-content: start;
+    /* width: 30%; */
+}
+
+#abilities{
+    display: flex;
+    justify-content: end;
+}

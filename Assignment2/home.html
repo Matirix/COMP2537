@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -7,15 +8,180 @@
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="./script.js"></script>
-    <link rel="stylesheet" type="text/css" href="./style.css">
 
-    <title>Pokemon</title>
+    <title>Document</title>
+    <style>
+        header {
+            display: flex;
+            justify-content: center;
+
+        }
+
+        nav {
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            background-color: gray;
+            color: white;
+            text-decoration: none;
+            text-align: center;
+            padding: 14px 16px;
+
+        }
+
+        /* 
+        nav a {
+            padding: 14px 16px;
+            text-align: center;
+            color: white;
+        } */
+
+        #end {
+            display: flex;
+            align-self: flex-end;
+            justify-content: flex-end;
+
+        }
+
+        a:hover {
+            background-color: white;
+            padding: 10px;
+        }
+
+        article {
+            display: flex;
+            justify-content: center;
+        }
+
+        .picsrow {
+            display: flex;
+            justify-content: center;
+            /* flex-wrap: wrap; */
+            flex-direction: row;
+            width: 100%;
+        }
+
+        #container {
+            display: flex;
+            flex-direction: column;
+        }
+
+        img {
+            border-radius: 10px;
+        }
+        .img_cont {
+            border-radius: 10px;
+            padding: 10px;
+            width: 100%;
+        }
+        
+        main {
+            display: flex;
+            flex-flow: row wrap;
+        }
+
+        @media screen and (max-width: 550px) {
+            main {
+                display: flex;
+                flex-flow: column;
+            }
+            .picsrow {
+                display: flex;
+                flex-direction: column;
+                /* width: 100%; */
+            }
+
+            nav a {
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                text-align: center;
+            }
+
+            #end{
+                display: flex;
+                flex-direction: column;
+                text-align: center;
+            }
+        }
+    </style>
 </head>
+
 <body>
-    <input value="" id="poke_name" type="text" /> <span id="temp"></span> </input>
-    <button id="get_pokemon" class="get_pages">
-        Search
-    </button>
-    <p id="display">Appear here</p>
+    <div id="container">
+        <header>
+            <h1>Responsive Web Gallery</h1>
+        </header>
+        <nav>
+            <span>
+                <a href="#">Link 1 </a>
+                <a href="#">Link 2 </a>
+                <a href="#">Link 3</a>
+            </span>
+            <span>
+                <a id="end" href="#">Link 4 </a>
+            </span>
+
+        </nav>
+        <main>
+
+            <article>
+                Lorem ipsum dolor sit, amet consectetur adipisicing elit. Animi praesentium voluptatibus omnis, dolore
+                quo
+                minus
+                a deserunt repellat voluptatem eum veritatis fuga quos? Rerum nesciunt quidem laboriosam beatae tempora
+                libero.
+            </article>
+
+            <div class="picsrow">
+                <div class="img_cont">
+                    <div class="random_pokemon"></div>
+                </div>
+                <div class="img_cont">
+                    <div class="random_pokemon"></div>
+                </div>
+                <div class="img_cont">
+                    <div class="random_pokemon"></div>
+                </div>
+            </div>
+
+            <div class="picsrow">
+                <div class="img_cont">
+                    <img src="https://picsum.photos/300/200/" width="100%">
+                </div>
+                <div class="img_cont">
+                    <img src="https://picsum.photos/300/200/" width="100%">
+                </div>
+                <div class="img_cont">
+                    <img src="https://picsum.photos/300/200/" width="100%">
+                </div>
+            </div>
+
+            <div class="picsrow">
+                <div class="img_cont">
+                    <img src="https://picsum.photos/300/200/" width="100%">
+                </div>
+                <div class="img_cont">
+                    <img src="https://picsum.photos/300/200/" width="100%">
+                </div>
+                <div class="img_cont">
+                    <img src="https://picsum.photos/300/200/" width="100%">
+                </div>
+            </div>
+
+        </main>
+        <div class="copyright">
+            <h5>Copyright My website 2022</h5>
+            <div>
+                <i class="material-icons md-36">favorite</i>
+                <i class="material-icons md-48">home</i>
+                <i class="material-icons md-36">map</i>
+            </div>
+        </div>
+    </div>
+
+
+
 </body>
+
 </html>
