@@ -14,9 +14,9 @@ function get_pokemon_f() {
 function display(data) {
     console.log("display")
     console.log(data)
-    picture = (data['sprites']['other']['official-artwork']);
-    // $("#display").html(`<img src=${picture}>` );
-    $("#display").html(picture);
+    picture = (data['sprites']['other']['official-artwork']['front_default']);
+    $("#display").html(`<img src=${picture}>` );
+    // $("#display").html(picture);
 
 
     
