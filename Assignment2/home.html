@@ -29,12 +29,13 @@
 
         }
 
-        /* 
+        
         nav a {
             padding: 14px 16px;
             text-align: center;
+            text-decoration: none;
             color: white;
-        } */
+        }
 
         #end {
             display: flex;
@@ -54,11 +55,14 @@
         }
 
         .picsrow {
-            display: flex;
+            /* display: flex;
             justify-content: center;
-            /* flex-wrap: wrap; */
+            flex-wrap: wrap;
             flex-direction: row;
-            width: 100%;
+            width: 100%; */
+            display: grid;
+            gap: 10px;
+            grid-template-columns: repeat(3, 1fr);
         }
 
         #container {
@@ -110,16 +114,12 @@
 <body>
     <div id="container">
         <header>
-            <h1>Responsive Web Gallery</h1>
+            <h1>Scuffed Pokedex</h1>
         </header>
         <nav>
             <span>
-                <a href="#">Link 1 </a>
-                <a href="#">Link 2 </a>
-                <a href="#">Link 3</a>
-            </span>
-            <span>
-                <a id="end" href="#">Link 4 </a>
+                <a href="#">Home </a>
+                <a href="./search.html">Search</a>
             </span>
 
         </nav>
@@ -134,40 +134,9 @@
             </article>
 
             <div class="picsrow">
-                <div class="img_cont">
-                    <div class="random_pokemon"></div>
-                </div>
-                <div class="img_cont">
-                    <div class="random_pokemon"></div>
-                </div>
-                <div class="img_cont">
-                    <div class="random_pokemon"></div>
-                </div>
+
             </div>
 
-            <div class="picsrow">
-                <div class="img_cont">
-                    <img src="https://picsum.photos/300/200/" width="100%">
-                </div>
-                <div class="img_cont">
-                    <img src="https://picsum.photos/300/200/" width="100%">
-                </div>
-                <div class="img_cont">
-                    <img src="https://picsum.photos/300/200/" width="100%">
-                </div>
-            </div>
-
-            <div class="picsrow">
-                <div class="img_cont">
-                    <img src="https://picsum.photos/300/200/" width="100%">
-                </div>
-                <div class="img_cont">
-                    <img src="https://picsum.photos/300/200/" width="100%">
-                </div>
-                <div class="img_cont">
-                    <img src="https://picsum.photos/300/200/" width="100%">
-                </div>
-            </div>
 
         </main>
         <div class="copyright">
