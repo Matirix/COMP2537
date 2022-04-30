@@ -12,22 +12,80 @@
     <title>Pokemon</title>
 </head>
 <body>
-    <input value="" id="poke_name" type="text" /> <span id="temp"></span> </input>
-    <input value="" id="poke_type" type="text" /> <span id="temp"></span> </input>
-    <input value="" id="poke_ability" type="text" /> <span id="temp"></span> </input>
+    <header>
+        <div id="title">
+            <img src="./pokeball.png" width="20%">
+            <h1>Scuffed Pokedex</h1>
+        </div>
+    </header>
+    <nav>
+        <span>
+            <a href="./home.html">Home </a>
+            <a href="./search.html">Search</a>
+        </span>
 
-    <button id="get_pokemon" class="get_pages">
-        Search
-    </button>
-    <hr>
-    <div id="stats">
-        <h1 id="name"></h1>
-        <p id="type"></p>
-        <div id="card">
-            <p id="picture">Appear here</p>
-            <p id="abilities">Abilities here</p>
+    </nav>
+    <br>
+    <div id="">
+        
+        <div id="criteria">
+        <!-- Textbox -->
+            <div id="searchbar">
+                <input value="" id="poke_name" type="text" /> <span id="temp"></span> </input>
+                <button id="get_pokemon">
+                    Search
+                </button>
+                
+                <div id="history">
+                    History:
+                    <select name="history" id="historydd">
+                        <!-- Where the generated options will appear -->
+                    </select>
+                    <button id="poke_history">
+                        Search again
+                    </button>
+
+                </div>
+            </div>
+
+            <!-- radiobuttons -->
+            <form id="radiobuttons">
+                <input type="radio" id="name" name="select" value="pokemon" checked="checked">
+                <label for="pokemon">pokemon</label>
+                <br>
+
+                <input type="radio" id="type" name="select" value="type">
+                <label for="type">type</label>
+                <br>  
+
+                <input type="radio" id="ability" name="select" value="ability">
+                <label for="ability">ability</label>
+                <br>
+
+            </div>
+
+
+
         </div>
 
+
+        <hr>
+<!-- stats -->
+        <div class="stats">
+            <p id="type"></p>
+            <div id="card">
+                <div id="left">
+                    <div id="picture"></div>
+                </div>
+                <div id="right">
+                    <h1 id="pkname"></h1>
+                    <div class="weight"></div>
+                    <div id="skilllist">Skills:<span id="abilities"></span></div>
+
+                </div>
+            </div>
+        </div>
     </div>
+
 </body>
 </html>

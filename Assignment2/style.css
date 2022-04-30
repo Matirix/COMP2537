@@ -1,9 +1,48 @@
-#stats {
+.stats {
 
-    border: solid black 1px;
+    border-radius: 10px;
     box-shadow: 1px;
+    content: "";
+    background-image: url("./5818392.jpg");
+    background-size: cover;
+    padding: 10px;
     
 }
+
+
+#searchbar {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+
+}
+
+#history {
+    display: flex;
+    justify-content: end;
+    
+}
+
+#right {
+    display: flex;
+    color: white;
+    width: 100%;
+    flex-direction: column;
+    justify-content: start;
+}
+
+#pkname {
+    margin-top: 0;
+}
+
+#radiobuttons {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+
+    
+}
+
 #name {
     display: block;
     justify-content: start;
@@ -28,11 +67,124 @@
     /* width: 30%; */
 }
 
+#skilllist{
+    display: flex;
+    flex-direction: column;
+}
+
 #abilities{
     display: flex;
-    justify-content: end;
+    flex-direction: column;
+    justify-content: start;
+    flex-wrap: wrap;
+    width: 100%;
 }
 
 
 /* home css */
 
+header {
+    display: flex;
+    justify-content: center;
+
+}
+
+#title {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+
+}
+
+nav {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    background-color: #e4000f;
+    color: white;
+    text-decoration: none;
+    text-align: center;
+    padding: 14px 16px;
+
+}
+
+
+nav a {
+    padding: 14px 16px;
+    text-align: center;
+    text-decoration: none;
+    color: white;
+}
+
+#end {
+    display: flex;
+    align-self: flex-end;
+    justify-content: flex-end;
+
+}
+
+a:hover {
+    background-color: white;
+    padding: 10px;
+}
+
+article {
+    display: flex;
+    justify-content: center;
+}
+
+.picsrow {
+    /* display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    flex-direction: row;
+    width: 100%; */
+    display: grid;
+    gap: 10px;
+    grid-template-columns: repeat(3, 1fr);
+}
+
+#container {
+    display: flex;
+    flex-direction: column;
+}
+
+img {
+    border-radius: 10px;
+}
+
+.img_cont {
+    border-radius: 10px;
+    padding: 10px;
+    width: 100%;
+}
+
+main {
+    display: flex;
+    flex-flow: row wrap;
+}
+
+@media screen and (max-width: 550px) {
+    main {
+        display: flex;
+        flex-flow: column;
+    }
+    .picsrow {
+        display: flex;
+        flex-direction: column;
+        /* width: 100%; */
+    }
+
+    nav a {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        text-align: center;
+    }
+
+    #end{
+        display: flex;
+        flex-direction: column;
+        text-align: center;
+    }
+}
