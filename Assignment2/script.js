@@ -32,6 +32,7 @@ function get_pokemon_history(){
 }
 
 function display(data) {
+    console.log(data)
     console.log(inputtype + "from display")
     if (inputtype == "type") {
         $("#right").hide();
@@ -41,7 +42,19 @@ function display(data) {
             names.push(data.pokemon[i].pokemon.name + "<br>")
         }
 
-        $("#picture").html(names);
+        $(".picture").html(names);
+
+    } else if (inputtype == "ability") {
+        $("#right").hide();
+        console.log("Ability - Type is successful")
+        names = []
+        for (i = 0; i != data.pokemon.length; i++) {
+            names.push(data.pokemon[i].pokemon.name + "<br>")
+        }
+
+        $(".picture").html(names);
+
+
 
     } else {
         picture = (data['sprites']['other']['official-artwork']['front_default']);
@@ -53,13 +66,25 @@ function display(data) {
             $("#abilities").append("<li>" + skills + "</li>") 
 
         }
+        $(".basestat").html("");
+        for (i=0; i != data.stats.length; i++) {
+            statname = data.stats[i].stat.name
+            // stateffort = data.stats[i].effort
+            basestats = data.stats[i].base_stat
+
+            console.log(basestats)
+            $(".basestat").append(statname + ": " + basestats + "<br>") 
+
+        }
+
 
 
 
         $("#historydd").append(`<option value=${data.species.name}>` + data.species.name + "</option>");
         $("#pkname").html(data.species.name);
         $("#type").html(data['types'][0]['type']['name']);
-        $("#picture").html(`<img src=${picture}>`);
+        $(".picture").html(`<img src=${picture}>`);
+        $(".height").html("Height: " + data.height);
         $(".weight").html("Weight: " + data.weight);
 
     }
@@ -113,7 +138,7 @@ function parsed_poke_list (rpoke) {
     // console.log(rpoke['height']);
     random_poke_list.push(rpoke)
     image = (rpoke['sprites']['other']['official-artwork']['front_default']);
-    $(".picsrow").append(`<a class='img_content'><img onclick="reveal(this.id)" class='pokename' id=${rpoke.species.name} src=${image} width="100%"></a>`);
+    $(".picsrow").append(`<a class='img_cont'><img onclick="reveal(this.id)" class='pokename' id=${rpoke.species.name} src=${image} width="100%"></a>`);
 }
 
 function reveal(child) {
