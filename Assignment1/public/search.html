@@ -8,34 +8,43 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="./script.js"></script>
     <link rel="stylesheet" type="text/css" href="./style.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css">
+
 
     <title>Pokemon</title>
 </head>
 <body>
     <header>
         <div id="title">
-            <img src="./pokeball.png" width="20%">
+            <!-- <img src="./pokeball.png" width="20%"> -->
             <h1>Scuffed Pokedex</h1>
         </div>
     </header>
     <nav>
         <span>
-            <a href="./home.html">Home </a>
+            <a href="./index.html">Home </a>
             <a href="./search.html">Search</a>
         </span>
 
     </nav>
     <br>
-    <div id="">
+
         
         <div id="criteria">
         <!-- Textbox -->
             <div id="searchbar">
+                <!-- Type -->
+                <span>Sort by Type: </span>
+                <select name="select" id="poketype">
+                    <option>Pick and Choose</option>
+                    <!-- Type gets inserted here -->
+                </select>
+
                 <input value="" id="poke_name" type="text" /> <span id="temp"></span> </input>
                 <button id="get_pokemon">
                     Search
                 </button>
-                
+                <!-- History -->
                 <div id="history">
                     History:
                     <select name="history" id="historydd">
@@ -46,6 +55,7 @@
                     </button>
 
                 </div>
+
             </div>
 
             <!-- radiobuttons -->
@@ -54,8 +64,8 @@
                 <label for="pokemon">pokemon</label>
                 <br>
 
-                <input type="radio" id="type" name="select" value="type">
-                <label for="type">type</label>
+                <!-- <input type="radio" id="type" name="select" value="type">
+                <label for="type">type</label> -->
                 <br>  
 
                 <input type="radio" id="ability" name="select" value="ability">
@@ -68,25 +78,35 @@
 
         </div>
 
-
         <hr>
+<!-- list -->
+    <div class="cards">
+
+    </div>
 <!-- stats -->
-        <div class="stats">
-            <p id="type"></p>
-            <div id="card">
-                <div id="left">
-                    <div class="picture"></div>
-                </div>
-                <div id="right">
-                    <h1 id="pkname"></h1>
-                    <div class="height"></div>
-                    <div class="weight"></div>
-                    <div class="basestat">Base Stats: <br></div>
-                    <div id="skilllist">Skills:<span id="abilities"></span></div>
-                </div>
+    <!-- <class class="stats"> -->
+        <!-- <div id="card">
+            <div id="left">
+                <div class="picture"></div>
             </div>
+            <div id="right">
+                <h1 id="pkname"></h1>
+                <p id="type"></p>
+                <div class="height"></div>
+                <div class="weight"></div>
+                <div class="basestat">Base Stats: <br></div>
+                <div id="skilllist">Skills:<span id="abilities"></span></div>
+            </div>
+        </div> -->
+    <!-- </div> -->
+    <div class="copyright">
+        <div>
+            <i class="bi bi-github" onclick="window.open('https://github.com/Matirix', '_blank')"></i>
+            <i class="bi bi-linkedin" onclick="window.open('https://www.linkedin.com/in/matthew-puyat-112318195/', '_blank')"></i>
+            <i class="bi bi-envelope-fill" onclick="window.open('mailto:Matirix@live.com', '_blank')"></i>
         </div>
     </div>
 
 </body>
+
 </html>
