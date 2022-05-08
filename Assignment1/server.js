@@ -5,10 +5,10 @@ app.use(express.static('./public'));
 app.use("./public", express.static("./public"));
 
 
-app.listen(16666, function (err) {
+app.listen(process.env.PORT || 16666, function (err) {
     if (err)
         console.log(err);
-})   
+})
 
 const https = require('https');
 
