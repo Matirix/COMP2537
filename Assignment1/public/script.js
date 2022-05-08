@@ -44,9 +44,9 @@ function display(data) {
 
         $(".cards").append(`
         <a class="x" href="/profile/${data.id}"> 
-        <h1 style="padding-left:10px">${data.id}</h1>
+        <h1 class='fadein' style="padding-left:10px">${data.id}</h1>
         <img class='img_cont pokename' id=${data.species.name} src=${image}>
-        <h1 style="text-align:center;">${data.species.name}</h1>
+        <h1 class='fadein' style="text-align:center;">${data.species.name}</h1>
         </a>`);
 
         //Code to display the Pokemon without redirecting to another page
@@ -155,34 +155,22 @@ function displaypokelist(data){
 
 }
 
-//Front Page Pokemon
+//Homepage2
 function parsed_poke_list (rpoke) {
 
     random_poke_list.push(rpoke)
     image = (rpoke['sprites']['other']['official-artwork']['front_default']);
     $(".picsrow").append(`
     <a class="x"  src=${image} href="/profile/${rpoke.id}"> 
-    <h1 style="padding-left:10px">${rpoke.id}</h1>
+    <h1 class="fadein" style="padding-left:10px">${rpoke.id}</h1>
     <img class='img_cont pokename' id=${rpoke.species.name} src=${image} width="100%">
-    <h1 style="text-align:center;">${rpoke.species.name}</h1>
+    <h1 class="fadein" style="text-align:center;">${rpoke.species.name}</h1>
     </a>`);
 }
 
-//History
-function get_pokemon_history(){
-    //URL
-    console.log($("#historydd option:selected").val())
-    x = ($("#historydd option:selected").val())
-    $.ajax(
-        {
-            "url": `https://pokeapi.co/api/v2/pokemon/${x}`,
-            "type": "GET",
-            "success": display
-        }
-    )
-}
 
-//Homepage
+
+//Homepage1
 random_poke_index =[]
 function random_nums() {
     // Random numbers
@@ -206,6 +194,8 @@ function random_nums() {
     }
 }
 
+
+//for Type
 function type_list() {
     console.log("working from type")
         $.ajax(
@@ -227,7 +217,19 @@ function poketypeoptions(data) {
 }
 
 
-
+//History
+function get_pokemon_history(){
+    //URL
+    console.log($("#historydd option:selected").val())
+    x = ($("#historydd option:selected").val())
+    $.ajax(
+        {
+            "url": `https://pokeapi.co/api/v2/pokemon/${x}`,
+            "type": "GET",
+            "success": display
+        }
+    )
+}
 
 
 

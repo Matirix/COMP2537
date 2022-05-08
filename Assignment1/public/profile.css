@@ -40,7 +40,7 @@ body {
     margin-bottom: 3px;
 }
 .types {
-    width: 10%;
+    width: auto;
     background-color: #be93d4;
     text-align: center;
     margin-left: 5px;

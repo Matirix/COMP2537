@@ -1,5 +1,7 @@
 body {
-    background-color: #f0ead6;
+    /* background-color: #f0ead6; */
+    background-color: #FFFFF0;
+
 }
 
 #searchbar {
@@ -106,6 +108,7 @@ article {
 img {
     border-radius: 10px;
     width: 50%;
+    
 
 }
 
@@ -115,6 +118,12 @@ img {
     width: 100%;
     /* background-color: ; */
 }
+
+.fadein {
+    transition: .5s ease;
+    opacity: 0;
+}
+
 .x {
     border-radius: 10px;
     background-color: #be93d4;
@@ -122,6 +131,22 @@ img {
     box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
 
 }
+
+
+.x:hover {
+    opacity: 0.9
+}
+
+.fadein {
+    transition: .5s ease;
+    opacity: 0;
+}
+
+.x:hover .fadein {
+    opacity: 1;
+
+}
+
 .cards {
     display: grid;
     gap: 10px;
