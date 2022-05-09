@@ -1,3 +1,35 @@
+* {
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    font-weight: 200;
+    letter-spacing: 1.3px;
+}
+input[type='radio']:after {
+    width: 15px;
+    height: 15px;
+    border-radius: 15px;
+    top: -2px;
+    left: -3px;
+    position: relative;
+    background-color: #d1d3d1;
+    content: '';
+    display: inline-block;
+    visibility: visible;
+    border: 2px solid white;
+}
+
+input[type='radio']:checked:after {
+    width: 15px;
+    height: 15px;
+    border-radius: 15px;
+    top: -2px;
+    left: -3px;
+    position: relative;
+    background-color: #be93d4;
+    content: '';
+    display: inline-block;
+    visibility: visible;
+    border: 2px solid white;
+}
 body {
     /* background-color: #f0ead6; */
     background-color: #FFFFF0;
@@ -18,6 +50,7 @@ body {
 #history {
     display: flex;
     justify-content: end;
+
 }
 
 #radiobuttons {
@@ -26,6 +59,7 @@ body {
     align-items: center;
 
 }   
+
 
 /* home css */
 
@@ -122,6 +156,7 @@ img {
 .fadein {
     transition: .5s ease;
     opacity: 0;
+    text-transform: uppercase;
 }
 
 .x {
@@ -205,6 +240,29 @@ main {
         display: flex;
         flex-direction: column;
         /* width: 100%; */
+    }
+
+    .cards {
+        display: flex;
+        flex-direction: column;
+        /* width: 100%; */
+    }
+
+    #criteria {
+        width: 100%;
+        display: flex;
+        flex-wrap: wrap;
+        flex-direction: column;
+    }
+
+    #searchbar {
+        display: flex;
+        flex-flow: wrap column;
+    }
+
+    #radiobuttons {
+        display: flex;
+        flex-flow: wrap column;
     }
 
     nav a {

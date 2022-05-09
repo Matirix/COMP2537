@@ -1,8 +1,16 @@
+* {
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    font-weight: 200;
+    letter-spacing: 1.3px;
+}
 
+.returnbox {
+    width: 10%;
 
+}
 .return {
     display: flex;
-    width: 5%;
+    width: 10%;
     color: black;
     background-color: #be93d4;
     border-radius: 10px;
@@ -12,7 +20,9 @@
 body {
     background-color: #f0ead6;
 }
-
+#name {
+    text-transform: uppercase;
+}
 .stats {
     display: flex;
     justify-content: center;
@@ -118,4 +128,8 @@ i {
 
 }
 
-
+@media screen and (max-width: 550px) {
+    .card {
+        width: 100%;
+    }
+}

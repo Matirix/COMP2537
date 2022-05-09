@@ -1,7 +1,7 @@
 // Name
 usrinput = null;
 inputtype = null;
-
+habitat = null;
 function get_pokemon_f() {
 
     console.log("working from get_pokemon_f")
@@ -39,7 +39,12 @@ function display(data) {
         // console.log(usrinput)
         ability_array();
 
-    } else {
+    } 
+    else if (inputtype == "pokemon-habitat") {
+        habitat_array(data);
+
+    } 
+    else {
         image = (data['sprites']['other']['official-artwork']['front_default']);
 
         $(".cards").append(`
@@ -111,12 +116,50 @@ function displayabilityarray(data) {
         console.log(data.name)
         $(".cards").append(`
         <a class="x" href="/profile/${data.id}"> 
-        <h1 style="padding-left:10px">${data.id}</h1>
+        <h1 class="fadein"style=" padding-left:10px">${data.id}</h1>
         <img class='img_cont pokename' id=${data.species.name} src=${image} width="100%">
-        <h1 style="text-align:center;">${data.species.name}</h1>
+        <h1 class="fadein" style="text-align:center;">${data.species.name}</h1>
         </a>`);
 
     }       
+}
+
+//habitat
+function habitat_array(data) {
+    $('#card').hide();
+    $(".cards").empty();
+    $('.cards').show();
+    habitat = data
+    console.log(usrinput)
+    $("#historydd").append(`<option value=${usrinput}>` + usrinput + "</option>");
+
+    for (i = 0; i != 1000; i++){
+        $.ajax(
+            {
+                "url":`https://pokeapi.co/api/v2/pokemon/${i}`,
+                "type": "GET",
+                "success": displayhabitatarray
+            }
+        )
+    }
+    
+}
+
+function displayhabitatarray(data) {
+    console.log(habitat.pokemon_species.length)
+    usrinput = $("#poke_name").val();
+    image = (data['sprites']['other']['official-artwork']['front_default']);
+
+    for (i = 0; i != habitat.pokemon_species.length; i++) {
+        if (habitat.pokemon_species[i].name == data.species.name) {
+            $(".cards").append(`
+            <a class="x" href="/profile/${data.id}"> 
+            <h1 class="fadein" style="padding-left:10px">${data.id}</h1>
+            <img class='img_cont pokename' id=${data.species.name} src=${image} width="100%">
+            <h1 class="fadein" style="text-align:center;">${data.species.name}</h1>
+            </a>`);
+        }
+    }
 }
 
 
@@ -146,9 +189,9 @@ function displaypokelist(data){
     if (type == data.types[0].type.name) {
         $(".cards").append(`
         <a class="x" href="/profile/${data.id}"> 
-        <h1 style="padding-left:10px">${data.id}</h1>
+        <h1 class="fadein" style="padding-left:10px">${data.id}</h1>
         <img class='img_cont pokename' id=${data.species.name} src=${image} width="100%">
-        <h1 style="text-align:center;">${data.species.name}</h1>
+        <h1 class="fadein" style="text-align:center;">${data.species.name}</h1>
         </a>`);
     }       
 
@@ -221,17 +264,21 @@ function poketypeoptions(data) {
 function get_pokemon_history(){
     //URL
     console.log($("#historydd option:selected").val())
+    inputtype = $('input[name=select]:checked', '#radiobuttons').val()
     x = ($("#historydd option:selected").val())
     $.ajax(
         {
-            "url": `https://pokeapi.co/api/v2/pokemon/${x}`,
+            "url": `https://pokeapi.co/api/v2/${inputtype}/${x}`,
             "type": "GET",
             "success": display
         }
     )
 }
 
-
+function clear() {
+    console.log("working")
+    $("#historydd").html('');
+}
 
 
 
@@ -246,7 +293,7 @@ function setup() {
     $('#card').hide();
     $('#history').hide();
     $('#poketype').change(get_pokemon_array);
-
+    $('#clear').click(clear)
 
 
 
