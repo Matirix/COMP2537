@@ -1,0 +1,296 @@
+* {
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    font-weight: 200;
+    letter-spacing: 1.3px;
+}
+input[type='radio']:after {
+    width: 15px;
+    height: 15px;
+    border-radius: 15px;
+    top: -2px;
+    left: -3px;
+    position: relative;
+    background-color: #d1d3d1;
+    content: '';
+    display: inline-block;
+    visibility: visible;
+    border: 2px solid white;
+}
+
+input[type='radio']:checked:after {
+    width: 15px;
+    height: 15px;
+    border-radius: 15px;
+    top: -2px;
+    left: -3px;
+    position: relative;
+    background-color: #be93d4;
+    content: '';
+    display: inline-block;
+    visibility: visible;
+    border: 2px solid white;
+}
+body {
+    /* background-color: #f0ead6; */
+    background-color: #FFFFF0;
+
+}
+
+#searchbar {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+
+}
+
+#poketype {
+    margin-right: 10px;
+
+}
+#history {
+    display: flex;
+    justify-content: end;
+
+}
+
+#radiobuttons {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+}   
+
+
+/* home css */
+
+header {
+    display: flex;
+    justify-content: center;
+
+}
+
+#title {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+
+
+}
+
+
+nav {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    background-color: #be93d4;
+    color: white;
+    text-decoration: none;
+    text-align: center;
+    padding: 14px 16px; 
+    margin-bottom: 30px;
+
+}
+
+
+nav a {
+    padding: 14px 16px;
+    text-align: center;
+    text-decoration: none;
+    color: white;
+}
+
+#end {
+    display: flex;
+    align-self: flex-end;
+    justify-content: flex-end;
+
+}
+
+a {
+    text-decoration: none;
+    color: black;
+}
+a:hover {
+    padding: 10px;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+
+    /* background-image: url("./pokeball.png"); */
+
+}
+
+article {
+    display: flex;
+    justify-content: center;
+}
+
+.picsrow {
+    /* display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    flex-direction: row;
+    width: 100%; */
+    display: grid;
+    gap: 10px;
+    grid-template-columns: repeat(3, 1fr);
+}
+
+#container {
+    display: flex;
+    flex-direction: column;
+}
+
+img {
+    border-radius: 10px;
+    width: 50%;
+    
+
+}
+
+.img_cont {
+    border-radius: 10px;
+    padding: 10px;
+    width: 100%;
+    /* background-color: ; */
+}
+
+.fadein {
+    transition: .5s ease;
+    opacity: 0;
+    text-transform: uppercase;
+}
+
+.x {
+    border-radius: 10px;
+    background-color: #be93d4;
+    margin: 10px;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+
+}
+
+
+.x:hover {
+    opacity: 0.9
+}
+
+.fadein {
+    transition: .5s ease;
+    opacity: 0;
+}
+
+.x:hover .fadein {
+    opacity: 1;
+
+}
+
+.cards {
+    display: grid;
+    gap: 10px;
+    grid-template-columns: repeat(3, 1fr);
+}
+
+.copyright{
+    display: flex;
+    justify-content: center;
+    background-color: #f0ead6;
+    padding: 10px;
+
+}
+
+.material-icons.md-18 {
+    font-size: 18px;
+}
+
+.material-icons.md-24 {
+    font-size: 24px;
+}
+
+.material-icons.md-36 {
+    font-size: 36px;
+}
+
+.material-icons.md-48 {
+    font-size: 48px;
+}
+
+i {
+    color: black;
+    text-decoration: none;
+    font-size: 48px;
+    padding-left: 20px;
+
+}
+
+/* .img_content {
+
+} */
+
+main {
+    display: flex;
+    flex-flow: row wrap;
+    padding: 10px;
+}
+/* timeline */
+
+.h1timeline {
+    display: flex;
+    justify-content: center;
+}
+
+#timeline{
+    flex-direction: column-reverse;
+    padding: 10px;
+}
+
+@media screen and (max-width: 550px) {
+    main {
+        display: flex;
+        flex-flow: column;
+    }
+    .picsrow {
+        display: flex;
+        flex-direction: column;
+        /* width: 100%; */
+    }
+
+    .cards {
+        display: flex;
+        flex-direction: column;
+        /* width: 100%; */
+    }
+
+    #criteria {
+        width: 100%;
+        display: flex;
+        flex-wrap: wrap;
+        flex-direction: column;
+    }
+
+    #searchbar {
+        display: flex;
+        flex-flow: wrap column;
+    }
+
+    #radiobuttons {
+        display: flex;
+        flex-flow: wrap column;
+    }
+
+    nav a {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        text-align: center;
+    }
+
+    nav {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+    }
+
+    #end{
+        display: flex;
+        flex-direction: column;
+        text-align: center;
+    }
+}

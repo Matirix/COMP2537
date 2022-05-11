@@ -1,0 +1,135 @@
+* {
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    font-weight: 200;
+    letter-spacing: 1.3px;
+}
+
+.returnbox {
+    width: 10%;
+
+}
+.return {
+    display: flex;
+    width: 10%;
+    color: black;
+    background-color: #be93d4;
+    border-radius: 10px;
+    justify-content: center;
+    align-items: center;
+}
+body {
+    background-color: #f0ead6;
+}
+#name {
+    text-transform: uppercase;
+}
+.stats {
+    display: flex;
+    justify-content: center;
+
+}
+.card {
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+    padding: 20px;
+    border-radius: 10px;
+    width: 30%;
+    background-color: white;
+}
+
+#pkname {
+    display: flex;
+    justify-content: space-between;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+    border-radius: 10px;
+    padding: 20px;
+    background-color: #be93d4;
+}
+
+.attribute {
+    display: flex;
+    margin-bottom: 3px;
+}
+.types {
+    width: auto;
+    background-color: #be93d4;
+    text-align: center;
+    margin-left: 5px;
+    margin-bottom: 5px;
+    padding: 5px;
+    border-radius: 5px;
+}
+
+
+.picture {
+    display: flex;
+    justify-content: center;
+    text-align: center;
+    border: #be93d4 solid 0.1px;
+    /* box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px; */
+    border-radius: 10px;
+    
+}
+
+img {
+    width: 50%;
+}
+
+#right {
+    padding: 10px;
+}
+
+#phys {
+    display: flex;
+}
+.basestat {
+    padding-top: 5px;
+    display: flex;
+    flex-flow: row wrap;
+}
+.values {
+    border-radius: 5px;
+    padding: 5px;
+    margin: 3px;
+    background-color: #be93d4;
+
+
+}
+
+
+.height {
+    /* box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px; */
+    border-radius: 10px;
+    padding: 5px;
+    background-color: #be93d4;
+    width: 20%;
+    text-align: center;
+}
+
+.weight {
+    /* box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px; */
+    border-radius: 10px;
+    padding: 5px;
+    margin-left: 5px;
+    background-color: #be93d4;
+    width: 20%;
+    text-align: center;
+}
+
+
+.copyright {
+    margin-top: 50px;
+
+}
+i {
+    color: black;
+    text-decoration: none;
+    font-size: 48px;
+    padding-left: 20px;
+
+}
+
+@media screen and (max-width: 550px) {
+    .card {
+        width: 100%;
+    }
+}
