@@ -10,11 +10,12 @@ function get_pokemon_f() {
     usrinput = $("#poke_name").val();
     inputtype = $('input[name=select]:checked', '#radiobuttons').val()
     console.log(usrinput)
+    console.log(inputtype)
+
     addnewevent()
     $.ajax(
         {
-            // "url":`http://localhost:16666/${inputtype}/${usrinput}`,
-            "url":`https://pokeapi.co/api/v2/${inputtype}/${usrinput}`,
+            "url":`http://localhost:16666/${inputtype}/${usrinput}`,
             "type": "GET",
             "success": display,
             "error": failure
@@ -49,46 +50,22 @@ function display(data) {
 
     } 
     else {
-        image = (data['sprites']['other']['official-artwork']['front_default']);
-
+        image = (data[0]['sprites']['other']['official-artwork']['front_default']);
+        data = data[0]
         $(".cards").append(`
-        <a class="x" href="/profile/${data.id}" onclick="addnewpokeevent(${rpoke.id})"> 
+        <a class="x" href="/profile/${data.id}" onclick="addnewpokeevent(${data.id})"> 
         <h1 class='fadein' style="padding-left:10px">${data.id}</h1>
         <img class='img_cont pokename' id=${data.species.name} src=${image}>
         <h1 class='fadein' style="text-align:center;">${data.species.name}</h1>
         </a>`);
 
-        //Code to display the Pokemon without redirecting to another page
-
-        // // For the abilities
-        // $("#abilities").html("");
-        // for (i=0; i != data.abilities.length; i++) {
-        //     skills = data.abilities[i].ability.name
-        //     $("#abilities").append("<li>" + skills + "</li>") 
-
-        // }
-        // $(".basestat").html("");
-        // for (i=0; i != data.stats.length; i++) {
-        //     statname = data.stats[i].stat.name
-        //     // stateffort = data.stats[i].effort
-        //     basestats = data.stats[i].base_stat
-
-        //     console.log(basestats)
-        //     $(".basestat").append(statname + ": " + basestats + "<br>") 
-
-        // }
-
         $("#historydd").append(`<option value=${data.species.name}>` + data.species.name + "</option>");
-        // $("#pkname").html(data.species.name);
-        // $("#type").html(data['types'][0]['type']['name']);
-        // $(".picture").html(`<img src=${picture}>`);
-        // $(".height").html("Height: " + data.height);    
-        // $(".weight").html("Weight: " + data.weight);
+
     }
 }
 
 
-//ability
+//ability - SSR
 function ability_array() {
     $('#card').hide();
     $(".cards").empty();
@@ -96,10 +73,10 @@ function ability_array() {
     console.log(usrinput)
     $("#historydd").append(`<option value=${usrinput}>` + usrinput + "</option>");
 
-    for (i = 0; i != 1000; i++){
+    for (i = 0; i != 30; i++){
         $.ajax(
             {
-                "url":`https://pokeapi.co/api/v2/pokemon/${i}`,
+                "url":`http://localhost:16666/pokemon/${i}`,
                 "type": "GET",
                 "success": displayabilityarray
             }
@@ -108,8 +85,9 @@ function ability_array() {
     
 }
 
-
+//SSR
 function displayabilityarray(data) {
+    data = data[0]
     console.log(data.abilities[0].ability.name)
     usrinput = $("#poke_name").val();
     console.log(usrinput);
@@ -119,7 +97,7 @@ function displayabilityarray(data) {
         console.log(data.abilities[0].ability.name)
         console.log(data.name)
         $(".cards").append(`
-        <a class="x" href="/profile/${data.id}" onclick="addnewpokeevent(${rpoke.id})"> 
+        <a class="x" href="/profile/${data.id}" onclick="addnewpokeevent(${data.id})"> 
         <h1 class="fadein"style=" padding-left:10px">${data.id}</h1>
         <img class='img_cont pokename' id=${data.species.name} src=${image} width="100%">
         <h1 class="fadein" style="text-align:center;">${data.species.name}</h1>
@@ -128,19 +106,20 @@ function displayabilityarray(data) {
     }       
 }
 
-//habitat
+//habitat - SSR
 function habitat_array(data) {
     $('#card').hide();
     $(".cards").empty();
     $('.cards').show();
-    habitat = data
+    habitat = data[0]
+    console.log(habitat)
     console.log(usrinput)
     $("#historydd").append(`<option value=${usrinput}>` + usrinput + "</option>");
 
-    for (i = 0; i != 1000; i++){
+    for (i = 0; i != 30; i++){
         $.ajax(
             {
-                "url":`https://pokeapi.co/api/v2/pokemon/${i}`,
+                "url":`http://localhost:16666/pokemon/${i}`,
                 "type": "GET",
                 "success": displayhabitatarray
             }
@@ -149,15 +128,19 @@ function habitat_array(data) {
     
 }
 
+//SSR 
 function displayhabitatarray(data) {
-    console.log(habitat.pokemon_species.length)
-    usrinput = $("#poke_name").val();
-    image = (data['sprites']['other']['official-artwork']['front_default']);
 
+    data = data[0]
+
+    usrinput = $("#poke_name").val();
+    // console.log(data.sprites.other["official-artwork"].front_default)
+    image = (data.sprites.other["official-artwork"].front_default);
+    //loops through the length of pokemon species name in the habitat data
     for (i = 0; i != habitat.pokemon_species.length; i++) {
         if (habitat.pokemon_species[i].name == data.species.name) {
             $(".cards").append(`
-            <a class="x" href="/profile/${data.id}" "onclick="addnewpokeevent(${rpoke.id})"> 
+            <a class="x" href="/profile/${data.id}" "onclick="addnewpokeevent(${data.id})"> 
             <h1 class="fadein" style="padding-left:10px">${data.id}</h1>
             <img class='img_cont pokename' id=${data.species.name} src=${image} width="100%">
             <h1 class="fadein" style="text-align:center;">${data.species.name}</h1>
@@ -167,7 +150,7 @@ function displayhabitatarray(data) {
 }
 
 
-//Search array
+//Search array - TYPE - SSR
 function get_pokemon_array (){
     $('#card').hide();
     $(".cards").empty();
@@ -175,10 +158,10 @@ function get_pokemon_array (){
     console.log($("#poketype option:selected").val())
     type = $("#poketype option:selected").val()
     addnewpoketype(type);
-    for (i = 0; i != 1000; i++){
+    for (i = 0; i != 30; i++){
         $.ajax(
             {
-                "url":`https://pokeapi.co/api/v2/pokemon/${i}`,
+                "url":`http://localhost:16666/pokemon/${i}`,
                 "type": "GET",
                 "success": displaypokelist
             }
@@ -187,12 +170,13 @@ function get_pokemon_array (){
 }
 
 function displaypokelist(data){
+    data = data[0]
     image = (data['sprites']['other']['official-artwork']['front_default']);
     // console.log(image)
     // console.log(type)
     if (type == data.types[0].type.name) {
         $(".cards").append(`
-        <a class="x" href="/profile/${data.id}" onclick="addnewpokeevent(${rpoke.id})"> 
+        <a class="x" href="/profile/${data.id}" onclick="addnewpokeevent(${data.id})"> 
         <h1 class="fadein" style="padding-left:10px">${data.id}</h1>
         <img class='img_cont pokename' id=${data.species.name} src=${image} width="100%">
         <h1 class="fadein" style="text-align:center;">${data.species.name}</h1>
@@ -201,30 +185,30 @@ function displaypokelist(data){
 
 }
 
-//Homepage2
+//Homepage2 - SSR
 function parsed_poke_list (rpoke) {
-
+    // console.log(rpoke)
     random_poke_list.push(rpoke)
-    image = (rpoke['sprites']['other']['official-artwork']['front_default']);
-    pokename = rpoke.species.name 
+    image = (rpoke[0].sprites.other["official-artwork"].front_default);
+    pokename = rpoke[0].species.name 
     $(".picsrow").append(`
-    <a class="x"  src=${image} href="/profile/${rpoke.id}" onclick="addnewpokeevent(${rpoke.id})"> 
-    <h1 class="fadein" style="padding-left:10px">${rpoke.id}</h1>
-    <img class='img_cont pokename' id=${rpoke.species.name} src=${image} width="100%">
-    <h1 class="fadein" style="text-align:center;">${rpoke.species.name}</h1>
+    <a class="x"  src=${image} href="/profile/${rpoke[0].id}" onclick="addnewpokeevent(${rpoke[0].id})"> 
+    <h1 class="fadein" style="padding-left:10px">${rpoke[0].id}</h1>
+    <img class='img_cont pokename' id=${rpoke[0].species.name} src=${image} width="100%">
+    <h1 class="fadein" style="text-align:center;">${rpoke[0].species.name}</h1>
     </a>`);
 }
 
 
 
-//Homepage1
+//Homepage1 - SSR
 random_poke_index =[]
 function random_nums() {
     // Random numbers
     console.log("from Random_num")
     random_poke_index = []
     for (i = 0; i < 12; i++) {
-        random_poke_index.push(Math.floor((Math.random() * 897) + 1))
+        random_poke_index.push(Math.floor((Math.random() * 29) + 1))
     }
     console.log(random_poke_index)
 
@@ -233,7 +217,7 @@ function random_nums() {
     for (i = 0; i <= random_poke_index.length; i++) {
         $.ajax(
             {
-                "url":`https://pokeapi.co/api/v2/pokemon/${random_poke_index[i]}`,
+                "url":`http://localhost:16666/pokemon/${random_poke_index[i]}`,
                 "type": "GET",
                 "success": parsed_poke_list
             }
@@ -247,7 +231,7 @@ function type_list() {
     console.log("working from type")
         $.ajax(
             {
-                "url":`https://pokeapi.co/api/v2/type/`,
+                "url":`http://localhost:16666/type`,
                 "type": "GET",
                 "success": poketypeoptions
             }
@@ -256,10 +240,11 @@ function type_list() {
 
 
 function poketypeoptions(data) {
+    // data = data[0]
     console.log(data)
     $("#poketype").empty();
-    for (i=0; data.results.length; i++) {
-        $("#poketype").append(`<option value="${data.results[i].name}">${data.results[i].name}</option>`)
+    for (i=0; data.length; i++) {
+        $("#poketype").append(`<option value="${data[i].name}">${data[i].name}</option>`)
     }
 }
 
@@ -344,7 +329,7 @@ function addnewpoketype(type) {
 
 function setup() {
     random_nums();
-    console.log(random_poke_list);
+    // console.log(random_poke_list);
     $('#get_pokemon').click(get_pokemon_f); 
     $('#poke_history').on('click', get_pokemon_history)
     $("#poketype").on('click', type_list)
