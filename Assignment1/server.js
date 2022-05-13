@@ -3,7 +3,11 @@ const app = express()
 app.set('view engine', 'ejs');
 app.use(express.static('./public'));
 app.use("./public", express.static("./public"));
+const mongoose = require('mongoose');
 
+
+mongoose.connect("mongodb+srv://Matirix:ThZ66IU29TT6Vb39@cluster0.wg0oi.mongodb.net/pokemonDB?retryWrites=true&w=majority",
+    { useNewUrlParser: true, useUnifiedTopology: true });
 
 app.listen(process.env.PORT || 16666, function (err) {
     if (err)
@@ -17,6 +21,47 @@ app.get('/', function(req, res) {
     })
 
 
+
+//Timeline Functionality
+
+
+// Start of Pokemon-Timeline Data
+const timelineSchema = new mongoose.Schema({
+    action: String,
+    likes: Number,
+    time: String
+});
+
+const timelineModel = mongoose.model("timelines", timelineSchema);
+
+// Timeline Get all
+app.get('/timeline/getAll', function(req, res) {
+    timelineModel.find({}, function (err, data) {
+        if (err) {
+            console.log("Error " + err);
+        } else {
+            console.log("Data " + data);
+        }
+        res.send(data);
+    });
+})
+
+//Insertions
+app.put('/timeline/insert', function (req, res) {
+    console.log(req.body)
+    timelineModel.create({
+        'action': req.body.action,
+        'time': req.body.time,
+        'likes': req.body.likes
+    }, function (err, data) {
+        if (err) {
+            console.log("Error " + err);
+        } else {
+            console.log("Data 2" + data);
+        }
+        res.send("Insertion is successful!");
+    });
+})
 app.get('/profile/:id', function (req, res) {
 
 

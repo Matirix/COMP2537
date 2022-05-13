@@ -48,7 +48,7 @@ function display(data) {
         image = (data['sprites']['other']['official-artwork']['front_default']);
 
         $(".cards").append(`
-        <a class="x" href="/profile/${data.id}"> 
+        <a class="x" href="/profile/${data.id}" onclick="addnewpokeevent(${data.id})"> 
         <h1 class='fadein' style="padding-left:10px">${data.id}</h1>
         <img class='img_cont pokename' id=${data.species.name} src=${image}>
         <h1 class='fadein' style="text-align:center;">${data.species.name}</h1>
@@ -115,7 +115,7 @@ function displayabilityarray(data) {
         console.log(data.abilities[0].ability.name)
         console.log(data.name)
         $(".cards").append(`
-        <a class="x" href="/profile/${data.id}"> 
+        <a class="x" href="/profile/${data.id}" onclick="addnewpokeevent(${data.id})"> 
         <h1 class="fadein"style=" padding-left:10px">${data.id}</h1>
         <img class='img_cont pokename' id=${data.species.name} src=${image} width="100%">
         <h1 class="fadein" style="text-align:center;">${data.species.name}</h1>
@@ -153,7 +153,7 @@ function displayhabitatarray(data) {
     for (i = 0; i != habitat.pokemon_species.length; i++) {
         if (habitat.pokemon_species[i].name == data.species.name) {
             $(".cards").append(`
-            <a class="x" href="/profile/${data.id}"> 
+            <a class="x" href="/profile/${data.id}" onclick="addnewpokeevent(${data.id})"> 
             <h1 class="fadein" style="padding-left:10px">${data.id}</h1>
             <img class='img_cont pokename' id=${data.species.name} src=${image} width="100%">
             <h1 class="fadein" style="text-align:center;">${data.species.name}</h1>
@@ -188,7 +188,7 @@ function displaypokelist(data){
     // console.log(type)
     if (type == data.types[0].type.name) {
         $(".cards").append(`
-        <a class="x" href="/profile/${data.id}"> 
+        <a class="x" href="/profile/${data.id}" onclick="addnewpokeevent(${data.id})"> 
         <h1 class="fadein" style="padding-left:10px">${data.id}</h1>
         <img class='img_cont pokename' id=${data.species.name} src=${image} width="100%">
         <h1 class="fadein" style="text-align:center;">${data.species.name}</h1>
@@ -204,7 +204,7 @@ function parsed_poke_list (rpoke) {
     random_poke_list.push(rpoke)
     image = (rpoke['sprites']['other']['official-artwork']['front_default']);
     $(".picsrow").append(`
-    <a class="x"  src=${image} href="/profile/${rpoke.id}"> 
+    <a class="x"  src=${image} href="/profile/${rpoke.id}" onclick="addnewpokeevent(${rpoke.id})"> 
     <h1 class="fadein" style="padding-left:10px">${rpoke.id}</h1>
     <img class='img_cont pokename' id=${rpoke.species.name} src=${image} width="100%">
     <h1 class="fadein" style="text-align:center;">${rpoke.species.name}</h1>
@@ -280,6 +280,60 @@ function clear() {
     $("#historydd").html('');
 }
 
+
+// EVENT
+function addnewevent() {
+    console.log("From addnewevent function")
+    date = new Date(Date.now());
+    dateformatted = date.getHours() + ":" + date.getMinutes() + ":" + date.getSeconds();
+    console.log(dateformatted)
+    $.ajax({
+        url: "https://young-tor-70220.herokuapp.com/timeline/insert",
+        type: "put",
+        data: {
+            action: `User searched for query ${usrinput} with the ${inputtype} option` ,
+            time: `${dateformatted}`,
+            likes: 1
+        },
+        success: (res)=>{console.log(res)}
+    })
+}
+
+function addnewpokeevent(name) {
+    console.log("Here we go")
+    date = new Date(Date.now());
+    dateformatted = date.getHours() + ":" + date.getMinutes() + ":" + date.getSeconds();
+    console.log(dateformatted)
+
+    $.ajax({
+        url: "https://young-tor-70220.herokuapp.com/timeline/insert",
+        type: "put",
+        data: {
+            action: `User clicked on Pokemon id ${name} - https://young-tor-70220.herokuapp.com/profile/${name}` ,
+            time: `${dateformatted}`,
+            likes: 1,
+        },
+        success: (res)=>{console.log(res)}
+    })
+}
+
+function addnewpoketype(type) {
+    console.log("Here we go")
+    date = new Date(Date.now());
+    dateformatted = date.getHours() + ":" + date.getMinutes() + ":" + date.getSeconds();
+    console.log(dateformatted)
+
+    $.ajax({
+        url: "https://young-tor-70220.herokuapp.com/timeline/insert",
+        type: "put",
+        data: {
+            action: `User filtered by ${type}` ,
+            time: `${dateformatted}`,
+            likes: 1,
+        },
+        success: (res)=>{console.log(res)}
+    })
+}
 
 
 function setup() {
