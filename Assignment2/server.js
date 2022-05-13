@@ -1,8 +1,11 @@
 const express = require('express')
 const app = express()
+var cors = require('cors')
 app.set('view engine', 'ejs');
 app.use(express.static('./public'));
 app.use("./public", express.static("./public"));
+app.use(cors())
+
 const mongoose = require('mongoose');
 
 
@@ -15,7 +18,7 @@ app.use(bodyparser.urlencoded({
 
 // Pokemon Data
 //Database
-mongoose.connect("mongodb://localhost:27017/pokemonDB",
+mongoose.connect("mongodb+srv://Matirix:ThZ66IU29TT6Vb39@cluster0.wg0oi.mongodb.net/pokemonDB?retryWrites=true&w=majority",
     { useNewUrlParser: true, useUnifiedTopology: true });
 //collections
 //For Pokemon names
@@ -117,7 +120,10 @@ app.get('/ability/:id', function(req, res) {
 //Pokemon by ID
 app.get('/pokemon/:id', function(req, res) {
     pokemonModel.find({
-        id: req.params.id
+        // or: [
+            id: req.params.id
+            // name: req.params.id,
+        // ]
     }, function (err, data) {
         if (err) {
             console.log("Error " + err);

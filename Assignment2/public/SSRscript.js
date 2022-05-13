@@ -15,7 +15,7 @@ function get_pokemon_f() {
     addnewevent()
     $.ajax(
         {
-            "url":`http://localhost:16666/${inputtype}/${usrinput}`,
+            "url":`https://secret-sierra-49740.herokuapp.com/${inputtype}/${usrinput}`,
             "type": "GET",
             "success": display,
             "error": failure
@@ -59,7 +59,7 @@ function display(data) {
         <h1 class='fadein' style="text-align:center;">${data.species.name}</h1>
         </a>`);
 
-        $("#historydd").append(`<option value=${data.species.name}>` + data.species.name + "</option>");
+        $("#historydd").append(`<option value=${data.id}>` + data.species.name + "</option>");
 
     }
 }
@@ -76,7 +76,7 @@ function ability_array() {
     for (i = 0; i != 30; i++){
         $.ajax(
             {
-                "url":`http://localhost:16666/pokemon/${i}`,
+                "url":`https://secret-sierra-49740.herokuapp.com/pokemon/${i}`,
                 "type": "GET",
                 "success": displayabilityarray
             }
@@ -119,7 +119,7 @@ function habitat_array(data) {
     for (i = 0; i != 30; i++){
         $.ajax(
             {
-                "url":`http://localhost:16666/pokemon/${i}`,
+                "url":`https://secret-sierra-49740.herokuapp.com/pokemon/${i}`,
                 "type": "GET",
                 "success": displayhabitatarray
             }
@@ -161,7 +161,7 @@ function get_pokemon_array (){
     for (i = 0; i != 30; i++){
         $.ajax(
             {
-                "url":`http://localhost:16666/pokemon/${i}`,
+                "url":`https://secret-sierra-49740.herokuapp.com/pokemon/${i}`,
                 "type": "GET",
                 "success": displaypokelist
             }
@@ -217,7 +217,7 @@ function random_nums() {
     for (i = 0; i <= random_poke_index.length; i++) {
         $.ajax(
             {
-                "url":`http://localhost:16666/pokemon/${random_poke_index[i]}`,
+                "url":`https://secret-sierra-49740.herokuapp.com/pokemon/${random_poke_index[i]}`,
                 "type": "GET",
                 "success": parsed_poke_list
             }
@@ -231,7 +231,7 @@ function type_list() {
     console.log("working from type")
         $.ajax(
             {
-                "url":`http://localhost:16666/type`,
+                "url":`https://secret-sierra-49740.herokuapp.com/type`,
                 "type": "GET",
                 "success": poketypeoptions
             }
@@ -257,7 +257,7 @@ function get_pokemon_history(){
     x = ($("#historydd option:selected").val())
     $.ajax(
         {
-            "url": `https://pokeapi.co/api/v2/${inputtype}/${x}`,
+            "url":`https://secret-sierra-49740.herokuapp.com/${inputtype}/${x}`,
             "type": "GET",
             "success": display
         }
@@ -277,7 +277,7 @@ function addnewevent() {
     dateformatted = date.getHours() + ":" + date.getMinutes() + ":" + date.getSeconds();
     console.log(dateformatted)
     $.ajax({
-        url: "http://localhost:16666/timeline/insert",
+        url: "https://secret-sierra-49740.herokuapp.com/timeline/insert",
         type: "put",
         data: {
             action: `User searched for query ${usrinput} with the ${inputtype} option` ,
@@ -295,10 +295,10 @@ function addnewpokeevent(name) {
     console.log(dateformatted)
 
     $.ajax({
-        url: "http://localhost:16666/timeline/insert",
+        url: "https://secret-sierra-49740.herokuapp.com/timeline/insert",
         type: "put",
         data: {
-            action: `User clicked on Pokemon id ${name} - http://localhost:16666/profile/${name}` ,
+            action: `User clicked on Pokemon id ${name} - https://secret-sierra-49740.herokuapp.com/profile/${name}` ,
             time: `${dateformatted}`,
             likes: 1,
         },
@@ -313,7 +313,7 @@ function addnewpoketype(type) {
     console.log(dateformatted)
 
     $.ajax({
-        url: "http://localhost:16666/timeline/insert",
+        url: "https://secret-sierra-49740.herokuapp.com/timeline/insert",
         type: "put",
         data: {
             action: `User filtered by ${type}` ,
