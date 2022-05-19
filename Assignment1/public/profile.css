@@ -4,13 +4,30 @@
     letter-spacing: 1.3px;
 }
 
+.buttons {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+}
 .returnbox {
-    width: 10%;
+    width: 10%
 
 }
+
+.addtolist{
+    display: flex;
+    color: black;
+    background-color: #be93d4;
+    border-radius: 10px;
+    justify-content: center;
+    align-items: center;
+    /* text-align: center; */
+
+}
+
 .return {
     display: flex;
-    width: 10%;
+    width: 100%;
     color: black;
     background-color: #be93d4;
     border-radius: 10px;
@@ -101,7 +118,7 @@ img {
     border-radius: 10px;
     padding: 5px;
     background-color: #be93d4;
-    width: 20%;
+    width: auto;
     text-align: center;
 }
 
@@ -111,7 +128,7 @@ img {
     padding: 5px;
     margin-left: 5px;
     background-color: #be93d4;
-    width: 20%;
+    width: auto;
     text-align: center;
 }
 

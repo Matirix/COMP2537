@@ -1,7 +1,9 @@
 const express = require('express')
+const bodyparser = require("body-parser");
 const app = express()
 var session = require('express-session')
 app.set('view engine', 'ejs');
+const path = require('path');
 app.use(express.static('./public'));
 
 // app.use("./public", express.static("./public"));
@@ -9,7 +11,10 @@ app.use(express.static('./public'));
 const mongoose = require('mongoose');
 //Session middleware
 app.use(session({ secret: 'ssshhhhh', saveUninitialized: true, resave: true }));
-
+//Bodyparser
+app.use(bodyparser.urlencoded({
+    extended: true
+  }));
 
 mongoose.connect("mongodb+srv://Matirix:ThZ66IU29TT6Vb39@cluster0.wg0oi.mongodb.net/pokemonDB?retryWrites=true&w=majority",
     { useNewUrlParser: true, useUnifiedTopology: true });
@@ -27,7 +32,18 @@ app.get('/', function(req, res) {
 
 
 
-//Timeline Functionality
+//Login
+const userSchema = new mongoose.Schema({
+    username: String,
+    pass: Number,
+    test: Array,
+    pokuisine: [Object]
+    
+});
+
+const userModel = mongoose.model("userlists", userSchema);
+
+
 
 
 // Start of Pokemon-Timeline Data
@@ -38,6 +54,82 @@ const timelineSchema = new mongoose.Schema({
 });
 
 const timelineModel = mongoose.model("timelines", timelineSchema);
+//Login Make up credentials
+
+users = [
+    {
+        "username": "Matt",
+        "password": "pass",
+        "list": [{
+
+        }]
+    }
+]
+
+var htmlPath = path.join(__dirname, 'public');
+
+app.post('/authenticate', function (req, res){
+    //Filters the array for the user's name if it matches. gets the password and matches with the user inputs password
+    // console.log(users.filter(user => user.username == req.body.name)[0].password)
+    if (users.filter(user => user.username == req.body.name)[0].password == req.body.pass) {
+        console.log("success")
+        req.session.authenticated = true
+        req.session.user = req.body.name
+        // res.sendFile(path.join(htmlPath + "/shopping.html"))
+        // res.redirect('/pokuisine')
+    } else {
+        req.session.authenticated = false
+        res.send("False")
+    }
+}
+)
+
+app.get('/guest'), function (req, res) {
+    console.log("This has been acessed")
+    res.send("hello" + req.session.user)
+}
+
+app.get('/pokuisine', function (req, res) {
+    if (req.session.user) {
+        res.sendFile(path.join(htmlPath + "/shopping.html"))
+    }
+    else {
+        res.redirect('/login.html')
+    }
+})
+
+
+//Login Get all
+app.get('/shoplist', function(req, res) {
+    // console.log(req.body.name)
+    // console.log(req.body.pass)
+    //Username to be replaced with req.session.user
+    userModel.find(
+        {username: "Admin"},
+
+    function (err, data) {
+        if (err) {
+            console.log("Error " + err);
+        } else {
+            console.log("Data " + data);
+        }
+        res.send(data);
+    });
+})
+
+
+app.post('/addtolist', function (req, res) {
+    // console.log(req.body.pokeID) 
+    // console.log(req.body.pokeWeight)
+    //username will have to be by user sesssion
+    var pokemon = {pID: req.body.pokeID, weight: req.body.pokeWeight , quantity: 1}
+    
+    userModel.findOneAndUpdate(
+        {username: "Matt"},
+        {$push: {pokuisine: pokemon}},
+        (error, success) => console.log(success))
+});
+
 
 // Timeline Get all
 app.get('/timeline/getAll', function(req, res) {
@@ -67,6 +159,8 @@ app.put('/timeline/insert', function (req, res) {
         res.send("Insertion is successful!");
     });
 })
+
+
 app.get('/profile/:id', function (req, res) {
     const url = `https://pokeapi.co/api/v2/pokemon/${req.params.id}`
     https.get(url, function (https_res) {
@@ -113,8 +207,8 @@ app.get('/profile/:id', function (req, res) {
                 "img_path": data.sprites.other["official-artwork"]["front_default"],
                 "stats": stats,
                 "bar": bar,
-                "height":  "Height: " + data.height,
-                "weight": "Weight: " + data.weight,
+                "height": data.height,
+                "weight": data.weight,
                 "skills": skills,
                 "types": types,
 
