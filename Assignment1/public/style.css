@@ -232,10 +232,7 @@ main {
 }
 
 /* Login */
-#login {
-    /* display: flex; */
-    
-}
+
 
 #login-box {
     position: relative;
@@ -258,6 +255,37 @@ main {
 #login_submit {
     margin-top: 15px;
 }
+
+/* Shopping Cart */
+
+#shoptemplate {
+    display: flex;
+    flex-flow: row;
+
+}
+
+#shoplist {
+    width: 70%;
+    border-radius: 10px;
+    background-color: #d1d3d1;
+    margin: 10px;
+    text-align: center;
+
+
+
+    
+}
+
+#checkout {
+    width: 30%;
+    margin: 10px;
+    border-radius: 10px;
+    background-color: #d1d3d1;
+    text-align: center;
+    height: 50%;
+    
+}
+
 
 
 
