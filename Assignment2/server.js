@@ -63,7 +63,6 @@ const timelineModel = mongoose.model("timelines", timelineSchema);
 
 
 
-
 //Get All's
 // Pokemon
 app.get('/pokemon/getAll', function(req, res) {
@@ -76,6 +75,8 @@ app.get('/pokemon/getAll', function(req, res) {
         res.send(data);
     });
 })
+
+
 //Type
 app.get('/type', function(req, res) {
     pokemonTypeModel.find({

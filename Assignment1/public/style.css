@@ -137,6 +137,7 @@ article {
 #container {
     display: flex;
     flex-direction: column;
+
 }
 
 img {
@@ -229,6 +230,35 @@ main {
     flex-flow: row wrap;
     padding: 10px;
 }
+
+/* Login */
+#login {
+    /* display: flex; */
+    
+}
+
+#login-box {
+    position: relative;
+    left: 25%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-flow: wrap column;
+    width: 30%;
+    background-color: #be93d4;
+    padding: 30px 5px;
+    border-radius: 10px;
+    margin: 10%;
+}
+
+.logintext {
+    margin: 5px;
+}
+
+#login_submit {
+    margin-top: 15px;
+}
+
 
 
 @media screen and (max-width: 550px) {

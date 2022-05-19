@@ -338,7 +338,7 @@ function addnewpoketype(type) {
 
 function setup() {
     random_nums();
-    console.log(random_poke_list);
+    // console.log(random_poke_list);
     $('#get_pokemon').click(get_pokemon_f); 
     $('#poke_history').on('click', get_pokemon_history)
     $("#poketype").on('click', type_list)

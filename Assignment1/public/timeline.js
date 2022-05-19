@@ -1,7 +1,7 @@
 function loadtimeline () {
     $.ajax({
         type:"get",
-        url:"https://secret-sierra-49740.herokuapp.com/timeline/getall",
+        url:"https://young-tor-70220.herokuapp.com/timeline/getall",
         data: "",
         success: 
             (r) => {
