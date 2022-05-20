@@ -3,10 +3,20 @@ function authenticate() {
     password =  $("#password").val();
     console.log(username + password)
 
+
     $.post('/authenticate', {
         name: username,
         pass: password
-    }).then(data =>  $('body').replaceWith(data))
+    }).then(
+        data => {
+            if (data !== 'fail') {
+                $('body').replaceWith(data)
+            }
+            else {
+                alert("Login not successful")
+            }
+        } 
+        )
 
 }
     

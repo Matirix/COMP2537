@@ -59,19 +59,28 @@ const timelineModel = mongoose.model("timelines", timelineSchema);
 var htmlPath = path.join(__dirname, 'public');
 
 app.post('/authenticate', function (req, res){
-    //Filters the array for the user's name if it matches. gets the password and matches with the user inputs password
-    // console.log(users.filter(user => user.username == req.body.name)[0].password)
+    console.log(req.body.pass)
     userModel.find(
-        {$and:[
-            {username: req.body.name},
-            {pass: req.body.pass}
-        ]},  (error, result) => {
-            req.session.authenticated = true
-            req.session.user = req.body.name
-            res.redirect('/pokuisine')
+        {$and: [{username: req.body.name}, {pass: req.body.pass}]},
+                (err, result) => {
+                try {
+                    //Need this down here to double verify the password for some odd reason
+                    result[0].pass == req.body.pass
+                    req.session.authenticated = true
+                    req.session.user = req.body.name
+                    res.redirect('/pokuisine')
+                } catch (err) {
+                    res.send('fail')
+
+                }
         }
     )}  
 )
+
+app.get('/loginfailed', function(req, res){
+    console.log("FAILED")
+    res.sendFile(path.join(htmlPath + "/login.html"))
+})
 // NAME DISPLAYED IN SHOPPING.HTML
 app.get('/guest', function (req, res) {
     // console.log(req.session.user)
@@ -79,7 +88,7 @@ app.get('/guest', function (req, res) {
         res.send(req.session.user)
     }
     else {
-        res.redirect('/login.html')
+        res.redirect('../login.html')
     }
 })
 
@@ -97,7 +106,7 @@ app.get('/pokuisine', function (req, res) {
 
 //Login Get all
 app.get('/shoplist', function(req, res) {
-    console.log("from Shoplist route" + req.session.user)
+    // console.log("from Shoplist route" + req.session.user)
     //Username to be replaced with req.session.user
     userModel.find(
         {username: req.session.user},
@@ -106,7 +115,7 @@ app.get('/shoplist', function(req, res) {
         if (err) {
             console.log("Error " + err);
         } else {
-            console.log("Data " + data);
+            console.log("Data from shoplist");
         }
         res.send(data);
     });
@@ -126,7 +135,7 @@ app.post('/addtolist', function (req, res) {
     // console.log(req.body.pokeWeight)
     //username will have to be by user sesssion
     var pokemon = {pID: req.body.pokeID, weight: req.body.pokeWeight , quantity: 1}
-    console.log(req.session.user)
+    // console.log(req.session.user)
     if (req.session.user) {
         userModel.findOneAndUpdate(
             {username: req.session.user},
