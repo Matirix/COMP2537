@@ -1,3 +1,4 @@
+// ADD TO LIST CALLED VIA ONCLICK
 function addtolist() {
     // to be added in pokelist
     $.post('/addtolist', {
@@ -7,18 +8,14 @@ function addtolist() {
         quantity: 1
 
     },  
-    (res) => console.log(res),
-    alert("Successfully added pokemon")
+    (res) => alert(res),
+
     
 )}
 
 
+
 function setup(){
-    // console.log($(".weight").val())
-    // console.log($("#pkname").text())
-    console.log(weight)
-
-
 
 }
 

@@ -35,7 +35,7 @@ app.get('/', function(req, res) {
 //Login
 const userSchema = new mongoose.Schema({
     username: String,
-    pass: Number,
+    pass: String,
     test: Array,
     pokuisine: [Object]
     
@@ -56,40 +56,36 @@ const timelineSchema = new mongoose.Schema({
 const timelineModel = mongoose.model("timelines", timelineSchema);
 //Login Make up credentials
 
-users = [
-    {
-        "username": "Matt",
-        "password": "pass",
-        "list": [{
-
-        }]
-    }
-]
-
 var htmlPath = path.join(__dirname, 'public');
 
 app.post('/authenticate', function (req, res){
     //Filters the array for the user's name if it matches. gets the password and matches with the user inputs password
     // console.log(users.filter(user => user.username == req.body.name)[0].password)
-    if (users.filter(user => user.username == req.body.name)[0].password == req.body.pass) {
-        console.log("success")
-        req.session.authenticated = true
-        req.session.user = req.body.name
-        // res.sendFile(path.join(htmlPath + "/shopping.html"))
-        // res.redirect('/pokuisine')
-    } else {
-        req.session.authenticated = false
-        res.send("False")
-    }
-}
+    userModel.find(
+        {$and:[
+            {username: req.body.name},
+            {pass: req.body.pass}
+        ]},  (error, result) => {
+            req.session.authenticated = true
+            req.session.user = req.body.name
+            res.redirect('/pokuisine')
+        }
+    )}  
 )
+// NAME DISPLAYED IN SHOPPING.HTML
+app.get('/guest', function (req, res) {
+    // console.log(req.session.user)
+    if (req.session.user) {
+        res.send(req.session.user)
+    }
+    else {
+        res.redirect('/login.html')
+    }
+})
 
-app.get('/guest'), function (req, res) {
-    console.log("This has been acessed")
-    res.send("hello" + req.session.user)
-}
-
+//REDIRECTING USER IF NOT LOGGED IN
 app.get('/pokuisine', function (req, res) {
+    // console.log(req.session.user)
     if (req.session.user) {
         res.sendFile(path.join(htmlPath + "/shopping.html"))
     }
@@ -101,11 +97,10 @@ app.get('/pokuisine', function (req, res) {
 
 //Login Get all
 app.get('/shoplist', function(req, res) {
-    // console.log(req.body.name)
-    // console.log(req.body.pass)
+    console.log("from Shoplist route" + req.session.user)
     //Username to be replaced with req.session.user
     userModel.find(
-        {username: "Admin"},
+        {username: req.session.user},
 
     function (err, data) {
         if (err) {
@@ -117,18 +112,31 @@ app.get('/shoplist', function(req, res) {
     });
 })
 
+app.get('/logout', (req, res) => {
+    if (req.session.user) {
+        req.session.destroy();
+        res.send("You aren now logged out");
+    } else {
+        res.send("You're not logged in!")
+    }
+})
 
 app.post('/addtolist', function (req, res) {
     // console.log(req.body.pokeID) 
     // console.log(req.body.pokeWeight)
     //username will have to be by user sesssion
     var pokemon = {pID: req.body.pokeID, weight: req.body.pokeWeight , quantity: 1}
-    
-    userModel.findOneAndUpdate(
-        {username: "Matt"},
-        {$push: {pokuisine: pokemon}},
-        (error, success) => console.log(success))
-});
+    console.log(req.session.user)
+    if (req.session.user) {
+        userModel.findOneAndUpdate(
+            {username: req.session.user},
+            {$push: {pokuisine: pokemon}},
+            (error, success) => console.log(success))
+        res.send("Successfully Added!")
+    } else {
+        res.send("Error, user not logged in")
+    }}
+    );
 
 
 // Timeline Get all

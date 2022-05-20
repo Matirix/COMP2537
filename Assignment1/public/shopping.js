@@ -1,15 +1,10 @@
-// function shoppinglist() {
-//     console.log("guest function")
-//     $.get('/guest', (data) =>{
-//         console.log(data)
-//     })
-// }
-
+//TO ROUND
 function trunc(num) {
     (Math.round(num * 100) / 100).toFixed(2);
 
 }
 
+//DISPLAY SHOPPING LIST
 async function displayshoplist() {
     pretax = 0
     await $.get('/shoplist', (data)=>{
@@ -19,7 +14,6 @@ async function displayshoplist() {
         for (i = 0; i < shoppinglist.length; i++) {
             $("#items").append(`
             <p> ${shoppinglist[i].pID} with weight: ${shoppinglist[i].weight} and quantity of ${shoppinglist[i].quantity} </p>
-            
             `)
             pretax += parseInt(shoppinglist[i].weight)
             $(".pretax").html(pretax)
@@ -31,6 +25,13 @@ async function displayshoplist() {
     $(".total").html(total.toFixed(2))
 
 }
+//GREETING
+function greeting() {
+    console.log("greeting")
+    $.get('/guest', (data) => $("#guest").html(data))
+}
+
+greeting();
 
 
 displayshoplist();
