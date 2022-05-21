@@ -18,6 +18,11 @@ function authenticate() {
         )
 
 }
+
+function greeting() {
+    console.log("greeting")
+    $.get('/guest', (data) => $("#guest").html(data))
+}
     
 function logout() {
     $.get('/logout', (data) => alert(data))
@@ -49,6 +54,7 @@ function signup(){
 function setup() {
     $("#login_submit").click(authenticate)
     $("#signup_submit").click(signup)
+    greeting();
     
     
 

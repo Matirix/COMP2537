@@ -8,32 +8,50 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="./script.js"></script>
     <script src="./login.js"></script>
-
     <link rel="stylesheet" type="text/css" href="./style.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 
-    <title>Pokemon</title>
+    <title>Profile</title>
 </head>
 <body>
     <header>
         <div id="title">
-            <img src="./pokeball.png" width="20%">
+            <!-- <img src="./pokeball.png" width="20%"> -->
             <h1>Scuffed Pokedex</h1>
         </div>
     </header>
     <nav>
         <span>
-            <a href="./home.html">Home </a>
+            <a href="./index.html">Home </a>
             <a href="./search.html">Search</a>
             <a href="./timeline.html">Timeline</a>
-            <a href="/" onclick="logout()">Log out</a>
-
-
+            <a href="./login.html">Account</a>
+            <a href="/pokuisine">Pokuisine</a>
+            <a onclick="logout()">Log out</a>
         </span>
-
     </nav>
     <br>
     <main>
-        <div class="picture">TEST</div>
+        <div id="login-box">
+            <div id="guest"> </div>
+            <i class="material-icons" style="font-size: 200px; padding: 0px">account_circle</i>
+            <hr>
+            <a href="/pokuisine"> View Shopping list</a>
+            <hr>
+            <a id="prevorders" href="">View previous orders</a>
+            <hr>
+            <a onclick="logout()">Log out</a>
+            
+
+        </div>
+        
     </main>
+    <div class="copyright">
+        <div>
+            <i class="bi bi-github" onclick="window.open('https://github.com/Matirix', '_blank')"></i>
+            <i class="bi bi-linkedin" onclick="window.open('https://www.linkedin.com/in/matthew-puyat-112318195/', '_blank')"></i>
+            <i class="bi bi-envelope-fill" onclick="window.open('mailto:Matirix@live.com', '_blank')"></i>
+        </div>
+    </div>
 </body>
 </html>
