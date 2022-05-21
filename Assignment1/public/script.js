@@ -92,7 +92,7 @@ function ability_array() {
     console.log(usrinput)
     $("#historydd").append(`<option value=${usrinput}>` + usrinput + "</option>");
 
-    for (i = 0; i != 1000; i++){
+    for (i = 0; i != 500; i++){
         $.ajax(
             {
                 "url":`https://pokeapi.co/api/v2/pokemon/${i}`,
@@ -133,7 +133,7 @@ function habitat_array(data) {
     console.log(usrinput)
     $("#historydd").append(`<option value=${usrinput}>` + usrinput + "</option>");
 
-    for (i = 0; i != 1000; i++){
+    for (i = 0; i != 500; i++){
         $.ajax(
             {
                 "url":`https://pokeapi.co/api/v2/pokemon/${i}`,

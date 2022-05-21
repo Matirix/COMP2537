@@ -25,6 +25,7 @@ app.listen(process.env.PORT || 16666, function (err) {
 })
 
 const https = require('https');
+const { response } = require('express');
 
 app.get('/', function(req, res) {
     res.sendFile(__dirname + "/index.html");
@@ -37,7 +38,8 @@ const userSchema = new mongoose.Schema({
     username: String,
     pass: String,
     test: Array,
-    pokuisine: [Object]
+    pokuisine: [Object],
+    order_history: Array
     
 });
 
@@ -58,6 +60,7 @@ const timelineModel = mongoose.model("timelines", timelineSchema);
 
 var htmlPath = path.join(__dirname, 'public');
 
+//Login
 app.post('/authenticate', function (req, res){
     console.log(req.body.pass)
     userModel.find(
@@ -77,10 +80,53 @@ app.post('/authenticate', function (req, res){
     )}  
 )
 
+
 app.get('/loginfailed', function(req, res){
     console.log("FAILED")
     res.sendFile(path.join(htmlPath + "/login.html"))
 })
+ 
+
+app.post('/signup', function (req, res){
+    let valid;
+    checkindb(req.body.name, (exists) => {
+        valid = exists;
+        console.log(exists)
+    })
+    console.log(valid)
+    if (!valid) {
+        userModel.create({
+            username: req.body.name,
+            pass: req.body.pass,
+            pokuisine: {},
+            order_history: {}
+        }, (err, data) => {
+            if (err) {
+                throw err;
+            } 
+            req.session.authenticated = true;
+            req.session.user = data.username;
+            res.redirect('/pokuisine')
+        })
+    } else {
+        res.send("fail")
+    }
+
+})
+
+function checkindb (name, callback) {
+    // console.log(name)
+    userModel.find({username: name}
+        ,(err, data) => {
+            if (err) {
+                throw err;
+            } 
+            return callback(data.length != 0)
+        })
+}
+
+
+
 // NAME DISPLAYED IN SHOPPING.HTML
 app.get('/guest', function (req, res) {
     // console.log(req.session.user)
@@ -131,11 +177,8 @@ app.get('/logout', (req, res) => {
 })
 
 app.post('/addtolist', function (req, res) {
-    // console.log(req.body.pokeID) 
-    // console.log(req.body.pokeWeight)
     //username will have to be by user sesssion
     var pokemon = {pID: req.body.pokeID, weight: req.body.pokeWeight , quantity: 1}
-    // console.log(req.session.user)
     if (req.session.user) {
         userModel.findOneAndUpdate(
             {username: req.session.user},
