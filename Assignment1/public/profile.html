@@ -22,25 +22,25 @@
     </header>
     <nav>
         <span>
-            <a href="./index.html">Home </a>
+            <a href="/">Home </a>
             <a href="./search.html">Search</a>
-            <a href="./timeline.html">Timeline</a>
-            <a href="./login.html">Account</a>
+            <a href="/userprofile">Account</a>
             <a href="/pokuisine">Pokuisine</a>
-            <a onclick="logout()">Log out</a>
         </span>
     </nav>
     <br>
     <main>
         <div id="login-box">
-            <div id="guest"> </div>
+
+            <h3 id="guest"></h3>
+
             <i class="material-icons" style="font-size: 200px; padding: 0px">account_circle</i>
             <hr>
             <a href="/pokuisine"> View Shopping list</a>
             <hr>
-            <a id="prevorders" href="">View previous orders</a>
+            <a id="prevorders" href="/history">Activity (Orders and Activity) </a>
             <hr>
-            <a onclick="logout()">Log out</a>
+            <a href="/"onclick="logout()">Log out</a>
             
 
         </div>

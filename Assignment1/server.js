@@ -49,6 +49,7 @@ const userModel = mongoose.model("userlists", userSchema);
 
 // Start of Pokemon-Timeline Data
 const timelineSchema = new mongoose.Schema({
+    username: String,
     action: String,
     likes: Number,
     time: String
@@ -131,7 +132,7 @@ app.get('/guest', function (req, res) {
     }
 })
 
-//REDIRECTING USER IF NOT LOGGED IN
+//REDIRECTING USER IF NOT LOGGED IN - TIMELINE
 app.get('/pokuisine', function (req, res) {
     // console.log(req.session.user)
     if (req.session.user) {
@@ -142,8 +143,29 @@ app.get('/pokuisine', function (req, res) {
     }
 })
 
+// REDIRECTING IF USER NOT LOGGED IN - TIMELINE
+app.get('/history', function (req, res) {
+    // console.log(req.session.user)
+    if (req.session.user) {
+        res.sendFile(path.join(htmlPath + "/timeline.html"))
+    }
+    else {
+        res.redirect('/login.html')
+    }
+})
+// PROFILE
+app.get('/userprofile', function (req, res) {
+    // console.log(req.session.user)
+    if (req.session.user) {
+        res.sendFile(path.join(htmlPath + "/profile.html"))
+    }
+    else {
+        res.redirect('/login.html')
+    }
+})
 
-//Login Get all
+
+//LOGIN SHOPLIST
 app.get('/shoplist', function(req, res) {
     // console.log("from Shoplist route" + req.session.user)
     //Username to be replaced with req.session.user
@@ -158,7 +180,7 @@ app.get('/shoplist', function(req, res) {
         res.send(data);
     });
 })
-
+//LOGOUT
 app.get('/logout', (req, res) => {
     if (req.session.user) {
         req.session.destroy();
@@ -180,20 +202,38 @@ app.post('/addtolist', function (req, res) {
     } else {
         res.send("Error, user not logged in")
     }}
-    );
+);
 //DELETE
 app.post('/delete_item', function (req, res) {
     userModel.updateOne(
         {username: req.session.user},
         {$pull: {
-            pokuisine: [{pID: req.body.pokemonID}]
+            "pokuisine": {pID: req.body.pokemonID}
         }} 
     , (err, data) => console.log("sucessfully deleted " + data))
 })
 
+app.post('/emptyshoplist', function (req, res) {
+    userModel.updateMany(
+        {username: req.session.user},
+        {$set:
+        {
+            "pokuisine": {}
+        }}
+    ).then(
+        (err, data) =>  
+        res.redirect('/')) 
+        
+    
+})
 // Timeline Get all
 app.get('/timeline/getAll', function(req, res) {
-    timelineModel.find({}, function (err, data) {
+
+    if (!req.session.user) return res.send("fail")
+
+    timelineModel.find({
+        'username': req.session.user
+    }, function (err, data) {
         if (err) {
             console.log("Error " + err);
         } else {
@@ -204,9 +244,12 @@ app.get('/timeline/getAll', function(req, res) {
 })
 
 //Insertions
-app.put('/timeline/insert', function (req, res) {
+app.post('/timeline/insert', function (req, res) {
     console.log(req.body)
+    if (!req.session.user) return res.send("User not logged in")
+
     timelineModel.create({
+        'username': req.session.user,
         'action': req.body.action,
         'time': req.body.time,
         'likes': req.body.likes

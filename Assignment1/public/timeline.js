@@ -1,23 +1,30 @@
 function loadtimeline () {
     $.ajax({
-        type:"get",
-        url:"https://young-tor-70220.herokuapp.com/timeline/getall",
-        data: "",
-        success: 
+        "type":"get",
+        "url":"http://localhost:16666/timeline/getall",
+        "data": "",
+        "success": 
             (r) => {
                 console.log(r)
+                text = '';
                 for( i = 0 ; i < r.length; i++  ){
-                    $("#timeline").append(`
+                    text += 
+                        `
                         <div> ${r[i].time} - ${r[i].action}
                             <button class="likeButtons" id="${r[i]["_id"]}"> Like! </button> 
                         </div> 
-                        `)         
+                        `
                 }
-               
-            }
+                $("#timeline").html(text)
+            },
+        "error": failure()
         })
 }
 
+function failure() {
+    $("#timeline").html(`Nothing seems to be here`);
+
+}
 
 function setup() {
     // console.log("Working")

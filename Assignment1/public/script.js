@@ -18,7 +18,7 @@ function get_pokemon_f() {
     )
 }
 
-//failure
+//Failure
 
 function failure() {
     $(".cards").show();
@@ -54,32 +54,9 @@ function display(data) {
         <h1 class='fadein' style="text-align:center;">${data.species.name}</h1>
         </a>`);
 
-        //Code to display the Pokemon without redirecting to another page
-
-        // // For the abilities
-        // $("#abilities").html("");
-        // for (i=0; i != data.abilities.length; i++) {
-        //     skills = data.abilities[i].ability.name
-        //     $("#abilities").append("<li>" + skills + "</li>") 
-
-        // }
-        // $(".basestat").html("");
-        // for (i=0; i != data.stats.length; i++) {
-        //     statname = data.stats[i].stat.name
-        //     // stateffort = data.stats[i].effort
-        //     basestats = data.stats[i].base_stat
-
-        //     console.log(basestats)
-        //     $(".basestat").append(statname + ": " + basestats + "<br>") 
-
-        // }
-
+    
         $("#historydd").append(`<option value=${data.species.name}>` + data.species.name + "</option>");
-        // $("#pkname").html(data.species.name);
-        // $("#type").html(data['types'][0]['type']['name']);
-        // $(".picture").html(`<img src=${picture}>`);
-        // $(".height").html("Height: " + data.height);    
-        // $(".weight").html("Weight: " + data.weight);
+
     }
 }
 
@@ -288,8 +265,8 @@ function addnewevent() {
     dateformatted = date.getHours() + ":" + date.getMinutes() + ":" + date.getSeconds();
     console.log(dateformatted)
     $.ajax({
-        url: "https://young-tor-70220.herokuapp.com/timeline/insert",
-        type: "put",
+        url: "http://localhost:16666/timeline/insert",
+        type: "post",
         data: {
             action: `User searched for query ${usrinput} with the ${inputtype} option` ,
             time: `${dateformatted}`,
@@ -306,10 +283,10 @@ function addnewpokeevent(name) {
     console.log(dateformatted)
 
     $.ajax({
-        url: "https://young-tor-70220.herokuapp.com/timeline/insert",
-        type: "put",
+        url: "http://localhost:16666/timeline/insert",
+        type: "post",
         data: {
-            action: `User clicked on Pokemon id ${name} - https://young-tor-70220.herokuapp.com/profile/${name}` ,
+            action: `You clicked on Pokemon id ${name} - http://localhost:16666/profile/${name}` ,
             time: `${dateformatted}`,
             likes: 1,
         },
@@ -324,10 +301,11 @@ function addnewpoketype(type) {
     console.log(dateformatted)
 
     $.ajax({
-        url: "https://young-tor-70220.herokuapp.com/timeline/insert",
-        type: "put",
+        // url: "https://young-tor-70220.herokuapp.com/timeline/insert",
+        url: "http://localhost:16666/timeline/insert",
+        type: "post",
         data: {
-            action: `User filtered by ${type}` ,
+            action: `You filtered by ${type}` ,
             time: `${dateformatted}`,
             likes: 1,
         },
@@ -338,7 +316,6 @@ function addnewpoketype(type) {
 
 function setup() {
     random_nums();
-    // console.log(random_poke_list);
     $('#get_pokemon').click(get_pokemon_f); 
     $('#poke_history').on('click', get_pokemon_history)
     $("#poketype").on('click', type_list)

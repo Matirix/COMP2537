@@ -5,17 +5,23 @@ function trunc(num) {
 }
 
 //DISPLAY SHOPPING LIST
-async function displayshoplist() {
+function displayshoplist() {
     pretax = 0
-    await $.get('/shoplist', (data)=>{
+    $.get('/shoplist', (data)=>{
 
         shoppinglist = data[0].pokuisine
-        console.log(shoppinglist[0].pID)
-        if (shoppinglist == undefined) {
+        // i = 0
+
+        if (shoppinglist === undefined || shoppinglist.length == 0) {
             $("#items").html("You have nothing!")
             return;
         }
+
         for (i = 0; i < shoppinglist.length; i++) {
+            // id = shoppinglist[i].pID
+            // weight = shoppinglist[i].weight
+            // quantity = shoppinglist[i].quantity
+            // var pokemon = new Pokemon(id, weight, quantity)
             $("#items").append(`
             <p> 
             ${shoppinglist[i].pID} with weight: ${shoppinglist[i].weight} and quantity of ${shoppinglist[i].quantity} 
@@ -25,11 +31,15 @@ async function displayshoplist() {
             pretax += parseInt(shoppinglist[i].weight)
             $(".pretax").html("$" + pretax)
         }
+        total = pretax * 1.13
+        tax = total - pretax
+        $(".tax").html("$" + tax.toFixed(2))
+        $(".total").html("$" + total.toFixed(2))
     })
-    total = pretax * 1.13
-    tax = total - pretax
-    $(".tax").html("$" + tax.toFixed(2))
-    $(".total").html("$" + total.toFixed(2))
+    // total = pretax * 1.13
+    // tax = total - pretax
+    // $(".tax").html("$" + tax.toFixed(2))
+    // $(".total").html("$" + total.toFixed(2))
 
 }
 //GREETING
@@ -46,20 +56,27 @@ function delete_item(item) {
 }
 
 //SEND ORDER
-void function send_order(){
+async function send_order(){
     total_money = $(".total").text()
-    poke_id = []
-    $.get('/shoplist', (data)=> {
+    poke_id = '';
+    date = new Date(Date.now());
+    dateformatted = date.getHours() + ":" + date.getMinutes() + ":" + date.getSeconds();
+    await $.get('/shoplist', (data)=> {
         console.log(data)
         shoppinglist = data[0].pokuisine
         for (i = 0; i < shoppinglist.length; i++) {
-            poke_id.push(shoppinglist[i].pID)
+            poke_id += shoppinglist[i].pID + ", "
         }
     })
-    $.post('/send_order', data = {
-
+    console.log(poke_id)
+    $.post('/timeline/insert', {
+        action: `You have successfully submitted an order with the pokemon ID's of ${poke_id}`,
+        time: dateformatted,
+        like: 1
     })
-    
+    alert("Order sent!")
+    $.post('/emptyshoplist', data =>  $('body').replaceWith(data))
+
 
 }
 
