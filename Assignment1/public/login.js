@@ -38,7 +38,7 @@ function signup(){
                 console.log(data)
                 alert("username is taken")
             } else {
-                console.log("success " + data)
+                console.log("success")
                 $('body').replaceWith(data)
             }
         }

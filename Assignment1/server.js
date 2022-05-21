@@ -37,7 +37,6 @@ app.get('/', function(req, res) {
 const userSchema = new mongoose.Schema({
     username: String,
     pass: String,
-    test: Array,
     pokuisine: [Object],
     order_history: Array
     
@@ -91,15 +90,11 @@ app.post('/signup', function (req, res){
     let valid;
     checkindb(req.body.name, (exists) => {
         valid = exists;
-        console.log(exists)
     })
-    console.log(valid)
     if (!valid) {
         userModel.create({
             username: req.body.name,
             pass: req.body.pass,
-            pokuisine: {},
-            order_history: {}
         }, (err, data) => {
             if (err) {
                 throw err;
@@ -124,8 +119,6 @@ function checkindb (name, callback) {
             return callback(data.length != 0)
         })
 }
-
-
 
 // NAME DISPLAYED IN SHOPPING.HTML
 app.get('/guest', function (req, res) {
@@ -156,7 +149,6 @@ app.get('/shoplist', function(req, res) {
     //Username to be replaced with req.session.user
     userModel.find(
         {username: req.session.user},
-
     function (err, data) {
         if (err) {
             console.log("Error " + err);
@@ -175,7 +167,7 @@ app.get('/logout', (req, res) => {
         res.send("You're not logged in!")
     }
 })
-
+//ADD
 app.post('/addtolist', function (req, res) {
     //username will have to be by user sesssion
     var pokemon = {pID: req.body.pokeID, weight: req.body.pokeWeight , quantity: 1}
@@ -189,7 +181,15 @@ app.post('/addtolist', function (req, res) {
         res.send("Error, user not logged in")
     }}
     );
-
+//DELETE
+app.post('/delete_item', function (req, res) {
+    userModel.updateOne(
+        {username: req.session.user},
+        {$pull: {
+            pokuisine: [{pID: req.body.pokemonID}]
+        }} 
+    , (err, data) => console.log("sucessfully deleted " + data))
+})
 
 // Timeline Get all
 app.get('/timeline/getAll', function(req, res) {
