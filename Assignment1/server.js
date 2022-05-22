@@ -5,6 +5,11 @@ var session = require('express-session')
 app.set('view engine', 'ejs');
 const path = require('path');
 app.use(express.static('./public'));
+//HASHING
+const bcrypt = require('bcrypt');
+const saltRounds = 10;
+const myPlaintextPassword = 's0/\/\P4$$w0rD';
+const someOtherPlaintextPassword = 'not_bacon';
 
 // app.use("./public", express.static("./public"));
 
@@ -56,46 +61,17 @@ const timelineSchema = new mongoose.Schema({
 });
 
 const timelineModel = mongoose.model("timelines", timelineSchema);
-//Login Make up credentials
-
 var htmlPath = path.join(__dirname, 'public');
 
-//Login
-app.post('/authenticate', function (req, res){
-    console.log(req.body.pass)
-    userModel.find(
-        {$and: [{username: req.body.name}, {pass: req.body.pass}]},
-                (err, result) => {
-                try {
-                    //Need this down here to double verify the password for some odd reason
-                    result[0].pass == req.body.pass
-                    req.session.authenticated = true
-                    req.session.user = req.body.name
-                    res.redirect('/pokuisine')
-                } catch (err) {
-                    res.send('fail')
-
-                }
-        }
-    )}  
-)
-
-
-app.get('/loginfailed', function(req, res){
-    console.log("FAILED")
-    res.sendFile(path.join(htmlPath + "/login.html"))
-})
- 
-
-app.post('/signup', function (req, res){
-    let valid;
-    checkindb(req.body.name, (exists) => {
-        valid = exists;
-    })
+//SIGN UP
+app.post('/signup', async function (req, res){
+    const salt = await bcrypt.genSalt(10)
+    const hashedpass = await bcrypt.hash(req.body.pass, salt)
+    valid =  await checkindb(req.body.name)
     if (!valid) {
         userModel.create({
             username: req.body.name,
-            pass: req.body.pass,
+            pass: hashedpass,
         }, (err, data) => {
             if (err) {
                 throw err;
@@ -110,15 +86,45 @@ app.post('/signup', function (req, res){
 
 })
 
-function checkindb (name, callback) {
-    // console.log(name)
-    userModel.find({username: name}
-        ,(err, data) => {
-            if (err) {
-                throw err;
-            } 
-            return callback(data.length != 0)
-        })
+//DECRYPT
+function decrypt(name, password) {
+    userModel.find({username: name}).then(
+        (result) => {
+        bcrypt.compare(password, result[0].pass).then(
+            //Is it true?
+            (data) => console.log(data)
+        )}
+    )
+
+}
+
+//LOGIN
+app.post('/authenticate', async function (req, res){
+        try {
+            if (decrypt(req.body.name, req.body.pass))
+            req.session.authenticated = true
+            req.session.user = req.body.name
+            res.redirect('/pokuisine')
+        } catch (err) {
+            res.send('fail')
+        }
+    }
+)  
+
+
+//LOGIN FAIL
+app.get('/loginfailed', function(req, res){
+    console.log("FAILED")
+    res.sendFile(path.join(htmlPath + "/login.html"))
+})
+ 
+
+
+
+async function checkindb (name) {
+    //Assigns function and it's result to a variable 
+    const exists = await userModel.find({username: name})
+    return (exists.length > 0)
 }
 
 // NAME DISPLAYED IN SHOPPING.HTML
@@ -210,7 +216,7 @@ app.post('/delete_item', function (req, res) {
         {$pull: {
             "pokuisine": {pID: req.body.pokemonID}
         }} 
-    , (err, data) => console.log("sucessfully deleted " + data))
+    , (err, data) => console.log("Sucessfully deleted " + data))
 })
 
 app.post('/emptyshoplist', function (req, res) {

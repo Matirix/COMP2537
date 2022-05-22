@@ -52,6 +52,7 @@ function greeting() {
     $.get('/guest', (data) => $("#guest").html(data))
 }
 
+//DELETE ITEM
 function delete_item(item) {
     console.log(item)
     $.post('/delete_item', {

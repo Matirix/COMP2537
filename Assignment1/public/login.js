@@ -12,6 +12,7 @@ function authenticate() {
                 $('body').replaceWith(data)
             }
             else {
+                console.log("Faild to login")
                 alert("Login not successful")
             }
         } 
