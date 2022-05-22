@@ -38,7 +38,7 @@ const userSchema = new mongoose.Schema({
     username: String,
     pass: String,
     pokuisine: [Object],
-    order_history: Array
+    order_history: Array,
     
 });
 
@@ -192,7 +192,7 @@ app.get('/logout', (req, res) => {
 //ADD
 app.post('/addtolist', function (req, res) {
     //username will have to be by user sesssion
-    var pokemon = {pID: req.body.pokeID, weight: req.body.pokeWeight , quantity: 1}
+    var pokemon = {pID: req.body.pokeID, weight: req.body.pokeWeight , quantity: 1, img: req.body.img}
     if (req.session.user) {
         userModel.findOneAndUpdate(
             {username: req.session.user},

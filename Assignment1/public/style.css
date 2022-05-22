@@ -3,6 +3,16 @@
     font-weight: 200;
     letter-spacing: 1.3px;
 }
+
+button {
+    padding: 5px;
+    margin: 5px;
+    border-radius: 0.5rem;
+    border: none;
+    background-color: #f0ead6;
+
+}
+
 input[type='radio']:after {
     width: 15px;
     height: 15px;
@@ -266,7 +276,7 @@ main {
 #shoplist {
     width: 70%;
     border-radius: 10px;
-    background-color: #d1d3d1;
+    background-color: #be93d4;
     margin: 10px;
     text-align: center;
 
@@ -274,16 +284,24 @@ main {
 
     
 }
+
+.shopcards {
+    border-radius: 0.5rem;
+    margin: 10px;
+}
+
+
 
 #checkout {
     width: 30%;
     margin: 10px;
     border-radius: 10px;
-    background-color: #d1d3d1;
+    background-color: #be93d4;
     text-align: center;
     height: 50%;
     
 }
+
 
 
 
@@ -339,5 +357,17 @@ main {
         display: flex;
         flex-direction: column;
         text-align: center;
+    }
+    #shoplist {
+        width: 100%;
+    }
+    #checkout {
+        width: 100%;
+
+    }
+    #shoptemplate {
+        display: flex;
+        flex-flow: column;
+    
     }
 }

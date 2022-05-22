@@ -23,10 +23,14 @@ function displayshoplist() {
             // quantity = shoppinglist[i].quantity
             // var pokemon = new Pokemon(id, weight, quantity)
             $("#items").append(`
-            <p> 
-            ${shoppinglist[i].pID} with weight: ${shoppinglist[i].weight} and quantity of ${shoppinglist[i].quantity} 
-            <button class=".delete_order" id="${shoppinglist[i].pID}" onclick="delete_item(${shoppinglist[i].pID})"> delete </button> 
-            </p>
+            <div class="shopcards "style="display:flex;"> 
+            <img src="${shoppinglist[i].img}" width="30%">
+            <p width="70%">
+            #PokeID: ${shoppinglist[i].pID} | ${shoppinglist[i].weight}lb | # of orders: ${shoppinglist[i].quantity}
+            <button class=".delete_order" id="${shoppinglist[i].pID}" onclick="delete_item(${shoppinglist[i].pID})"> Remove </button> 
+            </p> 
+            </div>
+
             `)
             pretax += parseInt(shoppinglist[i].weight)
             $(".pretax").html("$" + pretax)
