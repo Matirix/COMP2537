@@ -87,27 +87,37 @@ app.post('/signup', async function (req, res){
 })
 
 //DECRYPT
-function decrypt(name, password) {
-    userModel.find({username: name}).then(
+async function decrypt(name, password, callback) {
+    await userModel.find({username: name})
+    .then(
         (result) => {
-        bcrypt.compare(password, result[0].pass).then(
+        bcrypt.compare(password, result[0].pass)
+        .then(
             //Is it true?
-            (data) => console.log(data)
+            (data) => {
+                callback(data)
+            }
         )}
+        
+        
     )
+    
 
 }
 
 //LOGIN
-app.post('/authenticate', async function (req, res){
-        try {
-            if (decrypt(req.body.name, req.body.pass))
+app.post('/authenticate', async function (req, res,){
+        await decrypt(req.body.name, req.body.pass, (success) =>
+        {
+        if (!success) {
+            (console.log("The thing" + success))
+            res.send('fail')
+        } else {    
             req.session.authenticated = true
             req.session.user = req.body.name
             res.redirect('/pokuisine')
-        } catch (err) {
-            res.send('fail')
         }
+        })
     }
 )  
 
