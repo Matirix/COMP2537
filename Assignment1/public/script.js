@@ -286,7 +286,8 @@ function addnewpokeevent(name) {
         url: "http://localhost:16666/timeline/insert",
         type: "post",
         data: {
-            action: `You clicked on Pokemon id ${name} - http://localhost:16666/profile/${name}` ,
+            action: `You clicked on Pokemon id ${name}` ,
+            // action: `You clicked on Pokemon id ${name} - http://localhost:16666/profile/${name}`
             time: `${dateformatted}`,
             likes: 1,
         },

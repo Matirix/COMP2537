@@ -120,7 +120,7 @@ app.get('/loginfailed', function(req, res){
  
 
 
-
+//CHECKS IF NAME IN DB
 async function checkindb (name) {
     //Assigns function and it's result to a variable 
     const exists = await userModel.find({username: name})
@@ -198,17 +198,29 @@ app.get('/logout', (req, res) => {
 //ADD
 app.post('/addtolist', function (req, res) {
     //username will have to be by user sesssion
-    var pokemon = {pID: req.body.pokeID, weight: req.body.pokeWeight , quantity: 1, img: req.body.img}
+    var pokemon = {pID: req.body.pokeID, weight: req.body.pokeWeight, quantity: 1, img: req.body.img}
     if (req.session.user) {
         userModel.findOneAndUpdate(
             {username: req.session.user},
-            {$push: {pokuisine: pokemon}},
+            {$addToSet: {pokuisine: pokemon}},
             (error, success) => console.log(success))
         res.send("Successfully Added!")
     } else {
         res.send("Error, user not logged in")
     }}
 );
+
+//INCREMENT
+app.post('/uporder', (req, res) =>{
+    //Will need the PID of the pokemon
+    req.body.pokemonID
+    userModel.findOneAndUpdate(
+        {username: req.session.user, 'pokuisine.pID': req.body.pokemonID},
+        {$inc: 
+            {"pokuisine.$.quantity": 1}
+        }, (err, data) => res.send("Added one to order!")
+        )
+})
 //DELETE
 app.post('/delete_item', function (req, res) {
     userModel.updateOne(
@@ -216,16 +228,19 @@ app.post('/delete_item', function (req, res) {
         {$pull: {
             "pokuisine": {pID: req.body.pokemonID}
         }} 
-    , (err, data) => console.log("Sucessfully deleted " + data))
+    ,(err, data) => console.log("Sucessfully deleted " + data))
 })
 
+//EMPTY SHOPLIST
 app.post('/emptyshoplist', function (req, res) {
-    userModel.updateMany(
+    userModel.updateOne(
         {username: req.session.user},
-        {$set:
-        {
-            "pokuisine": {}
-        }}
+        {$unset: {'pokuisine': 1}}
+        // {username: req.session.user},
+        // {$set:
+        // {
+        //     "pokuisine": {}
+        // }}
     ).then(
         (err, data) =>  
         res.redirect('/')) 
@@ -234,9 +249,7 @@ app.post('/emptyshoplist', function (req, res) {
 })
 // Timeline Get all
 app.get('/timeline/getAll', function(req, res) {
-
     if (!req.session.user) return res.send("fail")
-
     timelineModel.find({
         'username': req.session.user
     }, function (err, data) {
@@ -251,9 +264,7 @@ app.get('/timeline/getAll', function(req, res) {
 
 //Insertions
 app.post('/timeline/insert', function (req, res) {
-    console.log(req.body)
     if (!req.session.user) return res.send("User not logged in")
-
     timelineModel.create({
         'username': req.session.user,
         'action': req.body.action,

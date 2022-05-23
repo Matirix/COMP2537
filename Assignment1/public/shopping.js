@@ -23,16 +23,20 @@ function displayshoplist() {
             // quantity = shoppinglist[i].quantity
             // var pokemon = new Pokemon(id, weight, quantity)
             $("#items").append(`
-            <div class="shopcards "style="display:flex;"> 
+            <div id="this_${shoppinglist[i].pID}" class="shopcards "style="display:flex;"> 
             <img src="${shoppinglist[i].img}" width="30%">
             <p width="70%">
-            #PokeID: ${shoppinglist[i].pID} | ${shoppinglist[i].weight}lb | # of orders: ${shoppinglist[i].quantity}
+            #PokeID: <span number="${shoppinglist[i].pID}"> ${shoppinglist[i].pID} </span> | 
+            <span id="weight"> ${shoppinglist[i].weight}lb </span>| 
+            # of orders: <span id="quantity"> ${shoppinglist[i].quantity} </span>
             <button class=".delete_order" id="${shoppinglist[i].pID}" onclick="delete_item(${shoppinglist[i].pID})"> Remove </button> 
+            <button class=".update_order" id="${shoppinglist[i].pID}" onclick="uporder(${shoppinglist[i].pID})"> + </button> 
             </p> 
             </div>
 
             `)
-            pretax += parseInt(shoppinglist[i].weight)
+            pretax += (parseInt(shoppinglist[i].weight) * parseInt(shoppinglist[i].quantity))
+            // pretax += parseInt(shoppinglist[i].weight)
             $(".pretax").html("$" + pretax)
         }
         total = pretax * 1.13
@@ -53,11 +57,24 @@ function greeting() {
 }
 
 //DELETE ITEM
-function delete_item(item) {
-    console.log(item)
-    $.post('/delete_item', {
+async function delete_item(item) {
+    $(`#this_${item}`).empty()
+    await $.post('/delete_item', {
         pokemonID: item
-    })
+    }).then(
+        (data) => console.log($(`#this_${item}`))
+    ) 
+}
+
+//UPDATE ITEM 
+async function uporder(item) {
+    await $.post('/uporder', {
+        pokemonID: item
+    }).then (
+        //Need to lower the scope
+        (data) => alert("Added, please refresh the page to see the details agian.")
+        // (data) =>  $("#quantity").html(data.pokuisine[0].quantity)
+        )
 }
 
 //SEND ORDER
