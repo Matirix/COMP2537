@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profile</title>
+
+    <link rel="stylesheet" type="text/css" href="../style.css">
+    <link rel="stylesheet" type="text/css" href="../profile.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Sofia">
+
+
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+</head>
+
+<body>
+    <header>
+        <div id="title">
+            <!-- <img src="../pokeball.png" width="20%"> -->
+            <h1>Scuffed Pokedex</h1>
+        </div>
+    </header>
+    <nav>
+        <span>
+            <a href="/">Home </a>
+            <a href="../search.html">Search</a>
+            <a href="/userprofile">Account</a>
+            <a href="/pokuisine">Pokuisine</a>
+
+
+        </span>
+
+    </nav>
+    <br>
+        <div class="buttons">
+            <a class="returnbox"href="../search.html">
+                <i class="bi bi-arrow-left return"></i>
+            </a>
+            <a class="addtolist" href="#" onclick="addtolist()">
+                <i class="material-icons">favorite</i>
+            </a>
+        </div>
+
+
+    <div class="stats">
+        
+        <div class="card">
+            <div id="left">
+
+                <h1 id="pkname">#<%= id %> <span id="name"> <%= name %></span></h1>
+                <div class="attribute"> 
+                    <% for (i = 0; i < types.length; i++) { %>
+                        <div class="types">
+                            <%= types[i] %>
+                        </div>
+                        <% } %>
+
+
+                    </div>
+                <div class="picture">
+                    <img src="<%= img_path %>" alt="">
+                </div>
+            </div>
+            <div id="right">
+                <div id="phys">
+                    <div class="height"> height: <%= height %></div>
+                    <div class="weight"> weight: <%= weight %></div>
+                </div>
+                <h4>Base stats:</h4>
+
+                <div class="basestat">
+                    <% for (i = 0; i < stats.length; i++) { %>
+                        <div class="values">
+                            <%= stats[i] %>                             
+                            <!-- <%= bar[i] %>  -->
+                            <progress class=""value="<%= bar[i] %>" max="255"> <%= bar[i] %> </progress>
+
+                        </div>
+                    <% } %>
+
+                <br></div>
+                <h4>Skills:</h4>
+
+                <div id="skilllist">
+                    <% for (i = 0; i < skills.length; i++) { %>
+                    <span class="values">
+                        <%= skills[i] %>
+                    </span>
+                    <% } %>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        var weight = '<%= weight %>'
+        var id = '<%= id %>'
+        var pName = '<%= name %>'
+        var pic = "<%= img_path %>"
+
+    </script>
+
+
+
+</body>
+    <script src="../addtolist.js"></script>
+    <script src="../login.js"></script>
+
+    <footer class="copyright">
+        <div>
+            <i class="bi bi-github" onclick="window.open('https://github.com/Matirix', '_blank')"></i>
+            <i class="bi bi-linkedin" onclick="window.open('https://www.linkedin.com/in/matthew-puyat-112318195/', '_blank')"></i>
+            <i class="bi bi-envelope-fill" onclick="window.open('mailto:Matirix@live.com', '_blank')"></i>
+        </div>
+    </footer>
+
+</html> 
