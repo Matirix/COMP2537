@@ -1,0 +1,72 @@
+
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <script src="./script.js"></script>
+
+        <link rel="stylesheet" type="text/css" href="./style.css">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Sofia">
+    
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    
+        <title>Profile</title>
+    </head>
+    <body>
+        <header>
+            <div id="title">
+                <h1>Scuffed Pokedex</h1>
+            </div>
+        </header>
+        <nav>
+            <span>
+                <a href="/">Home </a>
+                <a href="./search.html">Search</a>
+                <a href="/userprofile">Account</a>
+                <a href="/pokuisine">Pokuisine</a>
+                <a href="./game.html">Memory Card Game!</a>
+            </span>
+        </nav>
+        <br>
+        <h4>Press a difficulty to start the game! You've got 120 seconds to figure this out!  </h4>
+        <div id="difficulty">
+            <button onclick="getcards(6, 3, 3)">Easy</button>
+            <button onclick="getcards(12, 4, 6)">Normal</button>
+            <button onclick="getcards(24, 6, 12)">Medium</button>
+            <button onclick="getcards(36, 9, 18)">Hell</button>
+        </div>
+
+    
+        <div id="game">
+            <div id="gameboard">
+            </div>
+            
+            <div id="gamehistory">
+                <div id="timebox">
+                    <h4>Time Left:</h4>
+                    <span id="timer"></span>
+                    <!-- Timer goes here -->
+                </div>
+                <h4>History Box</h4>
+                <div id="gamehistorybox"></div>
+                
+            </div>
+
+        </div>
+
+        
+            
+        </main>
+        <div class="copyright">
+            <div>
+                <i class="bi bi-github" onclick="window.open('https://github.com/Matirix', '_blank')"></i>
+                <i class="bi bi-linkedin" onclick="window.open('https://www.linkedin.com/in/matthew-puyat-112318195/', '_blank')"></i>
+                <i class="bi bi-envelope-fill" onclick="window.open('mailto:Matirix@live.com', '_blank')"></i>
+            </div>
+        </div>
+    </body>
+    </html>

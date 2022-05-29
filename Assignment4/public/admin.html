@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="./script.js"></script>
+    <script src="./login.js"></script>
+
+    <script src="./admin.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="./style.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Sofia">
+
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+    <title>Profile</title>
+</head>
+<body>
+    <header>
+        <div id="title">
+            <!-- <img src="./pokeball.png" width="20%"> -->
+            <h1>Scuffed Pokedex</h1>
+        </div>
+    </header>
+    <nav>
+        <span>
+            <a href="/">Home </a>
+            <a href="./search.html">Search</a>
+            <a href="/userprofile">Account</a>
+            <a href="/pokuisine">Pokuisine</a>
+            <a href="./game.html">Memory Card Game!</a>
+        </span>
+    </nav>
+    <br>
+    <main>
+        <div id="admin-box">
+            <div id="adminside">
+                <h3 style="text-align: center;">Welcome<span id="guest"></span>
+            </h3>
+                <div id="unlimpower">
+                    <img src="Adminpower.png">
+                </div>
+                <p>
+                    You have the power to overwrite the destinies of others with just
+                    a single click. Use it wiseley.
+                </p>
+                <p>Create User:</p>
+                <label for="name">Username</label>
+                <input id="username" type="text">
+                <label for="name">Password</label>
+                <input id="password" type="password">  
+                <button id="createUser" onclick="signup()">Create User</button>
+            </div>
+            <div id="accounts">
+                <button onclick="getallusers()">Refresh</button>
+                <h3 style="text-align: center;"> List of accounts</h3>
+                <div id="accountslist"></div>
+            </div>
+
+        </div>
+        
+    </main>
+    <div class="copyright">
+        <div>
+            <i class="bi bi-github" onclick="window.open('https://github.com/Matirix', '_blank')"></i>
+            <i class="bi bi-linkedin" onclick="window.open('https://www.linkedin.com/in/matthew-puyat-112318195/', '_blank')"></i>
+            <i class="bi bi-envelope-fill" onclick="window.open('mailto:Matirix@live.com', '_blank')"></i>
+        </div>
+    </div>
+</body>
+</html>
